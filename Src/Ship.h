@@ -16,7 +16,7 @@ class playerShip:public Position {
 		void draw (RenderWindow& app);
 		void move();
 	
-	//	friend class Bullet; 
+		friend class Bullet; 
 	//	friend bool checkCollisionShip(AlienMissile); 
 };
 #endif

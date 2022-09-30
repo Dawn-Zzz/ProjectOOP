@@ -6,4 +6,9 @@ class Game {
 		void run();
 };
 
+class Position {
+	public:
+		int x, y;
+};
+
 #endif

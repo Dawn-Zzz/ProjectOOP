@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o Game.o Background.o
-LINKOBJ  = main.o Game.o Background.o
+OBJ      = main.o Game.o Background.o Ship.o
+LINKOBJ  = main.o Game.o Background.o Ship.o
 LIBS     = -L"D:/Dev C++/Dev-Cpp/MinGW64/lib" -L"D:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -L"C:/SFML-2.4.0/lib" -mwindows -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-window
 INCS     = -I"D:/Dev C++/Dev-Cpp/MinGW64/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/SFML-2.4.0/include"
 CXXINCS  = -I"D:/Dev C++/Dev-Cpp/MinGW64/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/SFML-2.4.0/include"
@@ -32,3 +32,6 @@ Game.o: Game.cpp
 
 Background.o: Background.cpp
 	$(CPP) -c Background.cpp -o Background.o $(CXXFLAGS)
+
+Ship.o: Ship.cpp
+	$(CPP) -c Ship.cpp -o Ship.o $(CXXFLAGS)

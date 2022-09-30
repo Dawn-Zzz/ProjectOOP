@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Background.h"
+#include "Ship.h"
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
@@ -9,8 +10,10 @@ using namespace std;
 RenderWindow app(VideoMode(1020, 600), "Galaxy");
 
 class backGround;
+class playerShip;
 
 backGround Background;
+playerShip Ship;
 
 void Game::run()
 {	
@@ -24,9 +27,14 @@ void Game::run()
             	app.close();
        		}
    		app.clear();
+   		
+   		//Xu ly
+		Ship.move();
 		
+		//Ve
 		Background.draw(app);
-
+		Ship.draw(app);
+		
 	    app.display();
     }
 }

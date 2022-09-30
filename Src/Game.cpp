@@ -2,6 +2,7 @@
 #include "Background.h"
 #include "Ship.h"
 #include "Bullet.h"
+#include "Alien.h"
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
@@ -13,10 +14,13 @@ RenderWindow app(VideoMode(1020, 600), "Galaxy");
 class backGround;
 class playerShip;
 class bullet;
+class listAliens;
 
 backGround Background;
 playerShip Ship;
 bulletShip Bullet_ship;
+listAliens Aliens;
+
 
 void shipFire () {
 	Bullet_ship.checkFire(Ship);
@@ -28,7 +32,8 @@ void Game::run()
 {	
     srand(time(NULL));
    	app.setFramerateLimit(60);
-
+	Aliens.initAliens();
+	
     while (app.isOpen()){
     	Event e;
        	while (app.pollEvent(e)) {
@@ -44,6 +49,7 @@ void Game::run()
 		Background.draw(app);
 		Ship.draw(app);
 		Bullet_ship.draw(app);
+		Aliens.draw(app);
 		
 	    app.display();
     }

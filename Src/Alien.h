@@ -17,8 +17,8 @@ class listAliens {
 	public:
 		initAliens ();
 		void draw (RenderWindow& app);
-	//	void move ();
-	//	bool aliensAtEdge();
+		void move ();
+		bool aliensAtEdge();
 		
 	//	friend void checkBulletCollisionsAlien();
 	//	friend void drawExplosions();

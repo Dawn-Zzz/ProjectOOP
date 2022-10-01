@@ -2,7 +2,9 @@
 #define ALIEN_H_INCLUDED
 
 #include "Game.h"
+
 #include <SFML/Graphics.hpp>
+
 using namespace sf;
 class Alien:public Position {
 	public:
@@ -19,8 +21,9 @@ class listAliens {
 		void draw (RenderWindow& app);
 		void move ();
 		bool aliensAtEdge();
-		
-	//	friend void checkBulletCollisionsAlien();
+	
+	//	friend void checkBulletCollisionsAlien(listAliens &a);
+		friend class bulletShip;
 	//	friend void drawExplosions();
 		
 	//	friend class AlienMissile; 

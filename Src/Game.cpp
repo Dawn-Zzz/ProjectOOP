@@ -13,7 +13,7 @@ RenderWindow app(VideoMode(1020, 600), "Galaxy");
 
 class backGround;
 class playerShip;
-class bullet;
+class bulletShip;
 class listAliens;
 
 backGround Background;
@@ -27,6 +27,7 @@ void shipFire () {
 	Bullet_ship.draw(app);
 	Bullet_ship.move();
 }
+
 
 void Game::run()
 {	
@@ -46,6 +47,7 @@ void Game::run()
 		Ship.move();
 		shipFire();
 		Aliens.move();
+		Bullet_ship.checkBulletCollisionsAlien(Aliens);
 		//Ve
 		Background.draw(app);
 		Ship.draw(app);

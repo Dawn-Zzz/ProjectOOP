@@ -45,6 +45,7 @@ void Game::run()
    		//Xu ly
 		Ship.move();
 		shipFire();
+		Aliens.move();
 		//Ve
 		Background.draw(app);
 		Ship.draw(app);

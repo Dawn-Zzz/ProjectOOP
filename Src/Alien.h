@@ -6,6 +6,19 @@
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
+
+class Explosion	{
+	public:
+	int explosionX=-20;
+	int explosionY=-20;
+	int ticCounter=0;
+	int totalTics = 20;
+//	int baseSprite = 64,
+//	int numFrames = 4;
+};
+
+void alienExplosion(int i, int j, int x, int y);
+
 class Alien:public Position {
 	public:
 		bool alive;
@@ -24,7 +37,7 @@ class listAliens {
 	
 	//	friend void checkBulletCollisionsAlien(listAliens &a);
 		friend class bulletShip;
-	//	friend void drawExplosions();
+		void drawExplosions(RenderWindow& app);
 		
 	//	friend class AlienMissile; 
 };

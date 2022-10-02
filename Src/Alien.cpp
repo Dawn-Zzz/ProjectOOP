@@ -13,6 +13,9 @@ int alienMoveDelay=20;
 int alienMoveCounter=alienMoveDelay;
 int alienMoveNumFrames=2;
 int alienMoveFrameCounter=0;
+
+Explosion explosions[8][6];
+
 listAliens::initAliens() {
 	for (int i=0;i<alienRows;i++)
 		for (int j=0; j<alienColumns; j++) {
@@ -89,6 +92,29 @@ bool listAliens::aliensAtEdge() {
 	return false;
 }
 
+void alienExplosion(int i, int j, int x, int y) {
+	explosions[i][j].explosionX=x;
+	explosions[i][j].explosionY=y;
+}
+
+void listAliens::drawExplosions(RenderWindow& app){
+	for (int i=0;i<alienRows;i++)
+		for (int j=0; j<alienColumns; j++) {
+			if (aliens[i][j].explosion==true){
+				Sprite e;
+				Texture t;
+				t.loadFromFile("images/block01.png");
+				e.setTexture(t);
+				e.setPosition(explosions[i][j].explosionX,explosions[i][j].explosionY);
+				app.draw(e);
+				explosions[i][j].ticCounter = explosions[i][j].ticCounter + 1;
+				if (explosions[i][j].ticCounter > explosions[i][j].totalTics) {
+					explosions[i][j].explosionX=-20;
+					explosions[i][j].explosionY=-20;
+				}
+			}
+		}
+}
 
 
 

@@ -13,6 +13,7 @@ class bulletShip:public Position {
 		int height=20,width=4;
 		bool active=false;
 	public:
+		int score=0;
 		bulletShip();
 		void checkFire(playerShip a);
 		void move ();
@@ -21,4 +22,5 @@ class bulletShip:public Position {
 		void checkBulletCollisionsAlien(listAliens &a);
 };
 
+void drawScore();
 #endif

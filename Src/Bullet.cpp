@@ -1,5 +1,6 @@
 #include "Bullet.h"
-
+#include <sstream>
+int score=0;
 bulletShip::bulletShip() {
 	x=-20,y=-20;
 }
@@ -56,14 +57,20 @@ void bulletShip::checkBulletCollisionsAlien(listAliens &a){
 					if (bulletHasHitAlien) {
 						a.aliens[i][j].alive = false;
 						active = false;
-					//	Aliens.aliens[i][j].explosion=true;
-					//	alienExplosion(i,j,Aliens.aliens[i][j].x,Aliens.aliens[i][j].y);
+						a.aliens[i][j].explosion=true;
+						alienExplosion(i,j,a.aliens[i][j].x,a.aliens[i][j].y);
 					//	if (n<10)
 					//	n++;
-					//	score=score+30;
+						if (i==0) 
+							score=score+20;
+						else if (i>0 && i<4) 
+							score=score+10; 
+						else score=score+5;
 					}
 				}	
 			}
 	}
 }
+
+
 

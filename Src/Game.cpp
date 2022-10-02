@@ -21,13 +21,25 @@ playerShip Ship;
 bulletShip Bullet_ship;
 listAliens Aliens;
 
-
 void shipFire () {
 	Bullet_ship.checkFire(Ship);
 	Bullet_ship.draw(app);
 	Bullet_ship.move();
 }
 
+void drawScore(){
+	Font font;
+	font.loadFromFile("QuirkyRobot.ttf");
+	Text text;
+	text.setFont(font);
+	text.setCharacterSize(30);
+	text.setStyle(sf::Text::Bold);
+	text.setFillColor(sf::Color::Green);
+	stringstream ss;
+	ss << Bullet_ship.score;
+	text.setString("Score "+ss.str());
+	app.draw(text);		
+}
 
 void Game::run()
 {	
@@ -53,6 +65,8 @@ void Game::run()
 		Ship.draw(app);
 		Bullet_ship.draw(app);
 		Aliens.draw(app);
+		Aliens.drawExplosions(app);
+		drawScore();
 		
 	    app.display();
     }

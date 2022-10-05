@@ -2,8 +2,9 @@
 #define BACKGROUND_H_INCLUDED
 
 #include <SFML/Graphics.hpp>
+
 using namespace sf;
-class backGround {
+class backGround{
 	private: 
 		Sprite background;
 		Texture t3;

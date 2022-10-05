@@ -1,7 +1,7 @@
 #ifndef ALIEN_H_INCLUDED
 #define ALIEN_H_INCLUDED
 
-#include "Game.h"
+#include "Variable.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -39,7 +39,7 @@ class listAliens {
 		friend class bulletShip;
 		void drawExplosions(RenderWindow& app);
 		
-	//	friend class AlienMissile; 
+		friend class missileAlien; 
 };
 
 #endif

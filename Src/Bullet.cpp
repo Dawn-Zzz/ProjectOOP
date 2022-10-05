@@ -1,9 +1,9 @@
 #include "Bullet.h"
-#include <sstream>
+
 int score=0;
-bulletShip::bulletShip() {
-	x=-20,y=-20;
-}
+//bulletShip::bulletShip() {
+//	x=-20,y=-20;
+//}
 
 void bulletShip::checkFire(playerShip a) {
 	if (Keyboard::isKeyPressed(Keyboard::Up)) 
@@ -59,8 +59,8 @@ void bulletShip::checkBulletCollisionsAlien(listAliens &a){
 						active = false;
 						a.aliens[i][j].explosion=true;
 						alienExplosion(i,j,a.aliens[i][j].x,a.aliens[i][j].y);
-					//	if (n<10)
-					//	n++;
+						if (n<5)
+						n++;
 						if (i==0) 
 							score=score+20;
 						else if (i>0 && i<4) 

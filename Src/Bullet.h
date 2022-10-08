@@ -13,7 +13,6 @@ class bulletShip:public Position,public Action {
 		int height=20,width=4;
 		bool active=false;
 	public:
-		int score=0;
 		void checkFire(playerShip a);
 		void move ();
 		void draw (RenderWindow& app);

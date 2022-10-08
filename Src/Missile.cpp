@@ -1,6 +1,6 @@
 #include "Missile.h"
-int n=1;
-int die=0;
+int maxMissile=1;
+
 void missileAlien::draw(RenderWindow& app) {
 	if (active) {
 		RectangleShape missile(sf::Vector2f(4, 20)); 
@@ -47,13 +47,23 @@ bool missileAlien::checkCollisionShip(playerShip a) {
 		return false;
 }
 
+
+void jumpToNewLifeState(){
+	gameState = stateNewLife;
+	timer = 0;
+	playerLives = playerLives - 1;
+}
+
 void missileAlien::checkBulletCollisionsShip(playerShip &ship){
 	bool bulletHasHitShip=false;
 	if (active) {
 		bulletHasHitShip = checkCollisionShip(ship);
 		if (bulletHasHitShip) {
 			active = false;
-			++die;
+			ship.alive=false;
+			jumpToNewLifeState();
 		}	
 	}
 }
+
+

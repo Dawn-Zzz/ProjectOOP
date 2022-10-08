@@ -1,6 +1,7 @@
 #include "Ship.h"
 
-playerShip::playerShip() {
+playerShip::initShip() {
+	alive=true;
 	x=470,y=530;
 	t1.loadFromFile("images/ship.png");
 	ship.setTexture(t1);
@@ -8,7 +9,9 @@ playerShip::playerShip() {
 }
 
 void playerShip::draw(RenderWindow& app) {
-	app.draw(ship);
+	if (alive==true) {
+		app.draw(ship);
+	}
 }
 
 void playerShip::move() {

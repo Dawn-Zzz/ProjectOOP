@@ -28,6 +28,20 @@ missileAlien Missile_alien[6];
 Action *pShip= new playerShip;
 Action *pBullet_ship= new bulletShip;
 
+bool gameNeedsToBeInitialised=true;
+
+int playerLives = 3;
+int score=0;
+
+int stateStartGame = 0;
+int statePlayGame = 1;
+int stateNewLife = 2;
+int stateGameOver = 3;
+
+int gameState = statePlayGame;
+
+int timer=0;
+
 void shipFire () {
 	Bullet_ship.checkFire(Ship);
 	Bullet_ship.draw(app);
@@ -35,7 +49,7 @@ void shipFire () {
 }
 
 void alienFire(){
-	for (int i=0;i<n;i++) {
+	for (int i=0;i<maxMissile;i++) {
 		Missile_alien[i].draw(app);
 		Missile_alien[i].move();
 		Missile_alien[i].checkFire(Aliens);
@@ -52,19 +66,60 @@ void drawScore(){
 	text.setStyle(sf::Text::Bold);
 	text.setFillColor(sf::Color::Green);
 	stringstream ss;
-//	ss << Bullet_ship.score;
-	ss << die;
+	//ss<<playerLives;
+	ss << score;
 	text.setString("Score "+ss.str());
 	app.draw(text);		
+}
+
+void initialiseGame(){
+	Ship.initShip();
+	Aliens.initAliens();
+}
+
+void playGame () {
+	if (gameNeedsToBeInitialised) {
+		pShip=&Ship;
+		pBullet_ship=&Bullet_ship;
+		initialiseGame();
+		gameNeedsToBeInitialised = false;
+	}
+	//Ve
+	Background.draw(app);
+	Ship.draw(app);
+	Bullet_ship.draw(app);
+	Aliens.draw(app);
+	Aliens.drawExplosions(app);
+	drawScore();
+   	//Xu ly
+	pShip->move();
+	shipFire();
+	Bullet_ship.checkBulletCollisionsAlien(Aliens);
+	Aliens.move();
+	alienFire();
+}
+
+void newLife(){
+	timer+=1;
+	if (timer>180) {
+		if (playerLives == 0) 
+			gameState = stateGameOver;
+		else {
+			Ship.initShip();
+			gameState = statePlayGame;
+		}
+	}
+	Aliens.move();
+	Background.draw(app);
+	Aliens.draw(app);
+	Aliens.drawExplosions(app);
+	drawScore();
 }
 
 void Game::run()
 {	
     srand(time(NULL));
    	app.setFramerateLimit(60);
-	Aliens.initAliens();
-	pShip=&Ship;
-	pBullet_ship=&Bullet_ship;
     while (app.isOpen()){
     	Event e;
        	while (app.pollEvent(e)) {
@@ -72,20 +127,11 @@ void Game::run()
             	app.close();
        		}
    		app.clear();
-   		
-		//Ve
-		Background.draw(app);
-		Ship.draw(app);
-		Bullet_ship.draw(app);
-		Aliens.draw(app);
-		Aliens.drawExplosions(app);
-		drawScore();
-   		//Xu ly
-		pShip->move();
-		shipFire();
-		Bullet_ship.checkBulletCollisionsAlien(Aliens);
-	//	Aliens.move();
-		alienFire();
+   		if (gameState==statePlayGame)
+   			playGame();
+   		else if (gameState==stateNewLife)
+   			newLife();
+		
 	    app.display();
     }
 }

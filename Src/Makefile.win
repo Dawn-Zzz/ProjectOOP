@@ -6,9 +6,9 @@ CC       = gcc.exe
 WINDRES  = windres.exe
 OBJ      = main.o Background.o Game.o Ship.o Bullet.o Alien.o Missile.o
 LINKOBJ  = main.o Background.o Game.o Ship.o Bullet.o Alien.o Missile.o
-LIBS     = -L"D:/Dev C++/Dev-Cpp/MinGW64/lib" -L"D:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -L"C:/SFML-2.4.0/lib" -mwindows -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-window
-INCS     = -I"D:/Dev C++/Dev-Cpp/MinGW64/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/SFML-2.4.0/include"
-CXXINCS  = -I"D:/Dev C++/Dev-Cpp/MinGW64/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/SFML-2.4.0/include"
+LIBS     = -L"D:/Dev C++/Dev-Cpp/MinGW64/lib" -L"D:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -L"C:/SFML-2.4.2/lib" -mwindows -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-window
+INCS     = -I"D:/Dev C++/Dev-Cpp/MinGW64/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/SFML-2.4.2/include"
+CXXINCS  = -I"D:/Dev C++/Dev-Cpp/MinGW64/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/SFML-2.4.2/include"
 BIN      = "Space Invaders.exe"
 CXXFLAGS = $(CXXINCS) -std=c++11
 CFLAGS   = $(INCS) -std=c++11

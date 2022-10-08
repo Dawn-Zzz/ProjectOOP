@@ -15,6 +15,18 @@ class Action{
 	public:
 		virtual void move()=0;
 };
-extern int n;
-extern int die;
+extern int level;
+extern int maxMissile;
+
+extern int playerLives;
+extern int score;
+
+extern int stateStartGame;
+extern int statePlayGame;
+extern int stateNewLife;
+extern int stateGameOver;
+
+extern int gameState;
+
+extern int timer;
 #endif

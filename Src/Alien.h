@@ -11,17 +11,17 @@ void alienExplosion(int, int, int, int);
 
 class Explosion	{
 	public:
-	int explosionX=-20;
-	int explosionY=-20;
-	int ticCounter=0;
-	int totalTics = 20;
+		int explosionX=-20;
+		int explosionY=-20;
+		int ticCounter=0;
+		int totalTics = 20;
 };
 
 class Alien:public Position {
 	public:
 		bool alive;
 		int height=20,width=42;
-		bool explosion;
+		bool explosion=false;
 };
 
 class listAliens {

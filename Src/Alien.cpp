@@ -6,7 +6,7 @@ int alienDirection=1;
 int alienSpeed=12; //Toc do quai chay ngang 
 int alienVertSpeed=12; //Khoang cach quai xuong dong 
 int alienMaxX=980; int alienMinX=0; //Gioi han toa do quai di chuyen
-
+int alienMaxY = 510;
 
 //4 bien nay dung de delay toc do di chuyen cua quai
 int alienMoveDelay=20;
@@ -16,14 +16,30 @@ int alienMoveFrameCounter=0;
 
 Explosion explosions[8][6];
 
+int calcAlienSpeed(int aliensAlive) {
+	int delay;
+	if (aliensAlive<=1) 
+		delay = 3;
+	else if (aliensAlive<=5) 
+		delay = 5;
+	else if (aliensAlive<=20) 
+		delay = 20;
+	else if (aliensAlive<=30) 
+		delay = 25;
+	else if (aliensAlive<=40) 
+		delay = 30;
+	else
+		delay = 1;
+	return delay; 
+}
+
 listAliens::initAliens() {
 	for (int i=0;i<alienRows;i++)
 		for (int j=0; j<alienColumns; j++) {
 			aliens[i][j].x=j*alienHorzSpacing;
 			aliens[i][j].y=alienTopOffset+i*alienVertSpacing;
 			aliens[i][j].alive=true;
-		//	aliens[i][j].explosion=false;
-		//	alienBaseSprite = alienRowTypes[row].baseSprite;
+			aliens[i][j].explosion=false;
 		}	
 }
 
@@ -52,6 +68,7 @@ void listAliens::draw(RenderWindow& app) {
 }
 
 void listAliens::move(){
+	int aliensAlive=0;
 	alienMoveCounter=alienMoveCounter-1;
 	if (alienMoveCounter<=0) {
 		alienMoveFrameCounter=alienMoveFrameCounter + 1;
@@ -61,6 +78,7 @@ void listAliens::move(){
 				for (int j=0; j<alienColumns; j++) {
 					if (aliens[i][j].alive==true) {
 						aliens[i][j].y=aliens[i][j].y+alienVertSpeed;
+						aliensAlive=aliensAlive+1;
 					}
 				}
 			alienDirection=-(alienDirection);
@@ -70,12 +88,19 @@ void listAliens::move(){
 				for (int j=0; j<alienColumns; j++) {
 					if (aliens[i][j].alive==true) {
 						aliens[i][j].x=aliens[i][j].x+alienSpeed*alienDirection;
+						aliensAlive=aliensAlive+1;
+						if (aliens[i][j].y > alienMaxY)
+							gameState = stateGameOver;
 					}
 				}
 		}
+		alienMoveDelay=calcAlienSpeed(aliensAlive);
 		alienMoveCounter=alienMoveDelay;
-	}
-	
+		if (aliensAlive == 0) {
+			timer = 0;
+			gameState = stateAllAliensDead;
+		}
+	}	
 }
 
 bool listAliens::aliensAtEdge() {
@@ -111,6 +136,8 @@ void listAliens::drawExplosions(RenderWindow& app){
 				if (explosions[i][j].ticCounter > explosions[i][j].totalTics) {
 					explosions[i][j].explosionX=-20;
 					explosions[i][j].explosionY=-20;
+					explosions[i][j].ticCounter=0;
+					aliens[i][j].explosion=false;
 				}
 			}
 		}

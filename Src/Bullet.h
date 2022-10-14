@@ -11,8 +11,9 @@ class bulletShip:public Position,public Action {
 	private:
 		int speed=10;
 		int height=20,width=4;
-		bool active=false;
+		bool active;
 	public:
+		initBullet();
 		void checkFire(playerShip a);
 		void move ();
 		void draw (RenderWindow& app);

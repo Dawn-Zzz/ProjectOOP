@@ -23,7 +23,7 @@ backGround Background;
 playerShip Ship;
 bulletShip Bullet_ship;
 listAliens Aliens;
-missileAlien Missile_alien[6];
+missileAlien Missile_alien[11];
 
 Action *pShip= new playerShip;
 Action *pBullet_ship= new bulletShip;
@@ -33,11 +33,13 @@ bool gameNeedsToBeInitialised=true;
 int playerLives = 3;
 int score=0;
 
+int alienDeath=0;
+
 int stateStartGame = 0;
 int statePlayGame = 1;
 int stateNewLife = 2;
 int stateGameOver = 3;
-
+int stateAllAliensDead = 4;
 int gameState = statePlayGame;
 
 int timer=0;
@@ -60,21 +62,32 @@ void alienFire(){
 void drawScore(){
 	Font font;
 	font.loadFromFile("QuirkyRobot.ttf");
-	Text text;
-	text.setFont(font);
-	text.setCharacterSize(30);
-	text.setStyle(sf::Text::Bold);
-	text.setFillColor(sf::Color::Green);
-	stringstream ss;
-	//ss<<playerLives;
-	ss << score;
-	text.setString("Score "+ss.str());
-	app.draw(text);		
+	Text scoreText;
+	scoreText.setFont(font);
+	scoreText.setCharacterSize(30);
+	scoreText.setStyle(sf::Text::Bold);
+	scoreText.setFillColor(sf::Color::Green);
+	
+	stringstream s1,s2;
+	s1 << score;
+	scoreText.setString("Score "+s1.str());
+	app.draw(scoreText);
+		
+	Text lives;
+	lives.setFont(font);
+	lives.setCharacterSize(30);
+	lives.setStyle(sf::Text::Bold);
+	lives.setFillColor(sf::Color::White);	
+	lives.setPosition(920,0);
+	s2 << playerLives;
+	lives.setString("Lives "+s2.str());
+	app.draw(lives);
 }
 
 void initialiseGame(){
 	Ship.initShip();
 	Aliens.initAliens();
+	Bullet_ship.initBullet();
 }
 
 void playGame () {
@@ -106,6 +119,11 @@ void newLife(){
 			gameState = stateGameOver;
 		else {
 			Ship.initShip();
+			Bullet_ship.initBullet();
+			for (int i=0;i<maxMissile;i++) {
+				Missile_alien[i].initMissile();
+			}
+			maxMissile=1;
 			gameState = statePlayGame;
 		}
 	}
@@ -115,6 +133,42 @@ void newLife(){
 	Aliens.drawExplosions(app);
 	drawScore();
 }
+
+void gameOver() {
+	Background.draw(app);
+	Aliens.draw(app);
+	drawScore();
+	
+	Font font;
+	font.loadFromFile("QuirkyRobot.ttf");
+	
+	Text over;
+	over.setFont(font);
+	over.setCharacterSize(30);
+	over.setStyle(sf::Text::Bold);
+	over.setFillColor(sf::Color::White);	
+	over.setPosition(400,300);
+	over.setString("You lose");
+	app.draw(over);
+}
+
+void allAliensDead() {
+	timer = timer + 1;
+	if (timer > 180) {
+		Aliens.initAliens();
+		gameState = statePlayGame;
+	}
+	Background.draw(app);
+//	Bullet_ship.draw(app);
+	Ship.draw(app);
+//	Aliens.drawExplosions(app);
+	drawScore();
+	
+	pShip->move();
+//	pBullet_ship->move();
+	alienFire();	
+}
+
 
 void Game::run()
 {	
@@ -131,7 +185,10 @@ void Game::run()
    			playGame();
    		else if (gameState==stateNewLife)
    			newLife();
-		
+   		else if (gameState==stateGameOver)
+   			gameOver();
+   		else if (gameState==stateAllAliensDead)
+			allAliensDead();
 	    app.display();
     }
 }

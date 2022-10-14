@@ -1,7 +1,11 @@
 #include "Bullet.h"
 
-int alienDeath=0;
 int level=1;
+
+bulletShip::initBullet(){
+	x=-20;
+	y=-20;
+}
 
 void bulletShip::checkFire(playerShip a) {
 	if (Keyboard::isKeyPressed(Keyboard::Up)) 
@@ -57,13 +61,9 @@ void bulletShip::checkBulletCollisionsAlien(listAliens &a){
 						active = false;
 						a.aliens[i][j].explosion=true;
 						alienExplosion(i,j,a.aliens[i][j].x,a.aliens[i][j].y);
-					//	if (maxMissile<5)
-						//maxMissile++;
+//						if (maxMissile<5)
+//							maxMissile++;
 						alienDeath++;
-//						if (alienDeath==48) {
-//							a.initAliens();
-//							alienDeath=0;
-//						}
 						if (i==0) 
 							score=score+20;
 						else if (i>0 && i<4) 

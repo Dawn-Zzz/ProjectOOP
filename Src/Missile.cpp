@@ -1,10 +1,15 @@
 #include "Missile.h"
 int maxMissile=1;
 
+missileAlien::initMissile(){
+	x=-20;
+	y=-20;
+}
+
 void missileAlien::draw(RenderWindow& app) {
 	if (active) {
 		RectangleShape missile(sf::Vector2f(4, 20)); 
-		missile.setFillColor(Color::White);
+		missile.setFillColor(Color::Yellow);
 		missile.setPosition(x,y);
 		app.draw(missile);
 	}

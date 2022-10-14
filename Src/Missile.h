@@ -9,10 +9,11 @@ using namespace sf;
 
 class missileAlien:public Position,public Action{
 	private:
-		int speed=5;
+		int speed=rand()%16;
 		int height=20,width=4;
 		bool active=false;
 	public:
+		initMissile();
 		void move();
 		void draw(RenderWindow& app); 
 		void checkFire (listAliens a);

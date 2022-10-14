@@ -17,6 +17,7 @@ class Action{
 };
 extern int level;
 extern int maxMissile;
+extern int alienDeath;
 
 extern int playerLives;
 extern int score;
@@ -25,7 +26,7 @@ extern int stateStartGame;
 extern int statePlayGame;
 extern int stateNewLife;
 extern int stateGameOver;
-
+extern int stateAllAliensDead;
 extern int gameState;
 
 extern int timer;

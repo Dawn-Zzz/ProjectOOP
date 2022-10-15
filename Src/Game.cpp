@@ -32,6 +32,7 @@ bool gameNeedsToBeInitialised=true;
 
 int playerLives = 3;
 int score=0;
+int level=1;
 
 int alienDeath=0;
 
@@ -144,28 +145,44 @@ void gameOver() {
 	
 	Text over;
 	over.setFont(font);
-	over.setCharacterSize(30);
+	over.setCharacterSize(50);
 	over.setStyle(sf::Text::Bold);
 	over.setFillColor(sf::Color::White);	
-	over.setPosition(400,300);
+	over.setPosition(415,270);
 	over.setString("You lose");
 	app.draw(over);
 }
 
 void allAliensDead() {
 	timer = timer + 1;
+	
+	Background.draw(app);
+	Bullet_ship.draw(app);
+	Ship.draw(app);
+	Aliens.drawExplosions(app);
+	drawScore();
+	
+	Font font;
+	font.loadFromFile("QuirkyRobot.ttf");
+		
+	Text round;
+	round.setFont(font);
+	round.setCharacterSize(50);
+	round.setStyle(sf::Text::Bold);
+	round.setFillColor(sf::Color::White);	
+	round.setPosition(415,270);
+	stringstream s;
+	s << level;
+	round.setString("Wave "+s.str());
+	app.draw(round);
+	
 	if (timer > 180) {
 		Aliens.initAliens();
 		gameState = statePlayGame;
-	}
-	Background.draw(app);
-//	Bullet_ship.draw(app);
-	Ship.draw(app);
-//	Aliens.drawExplosions(app);
-	drawScore();
+	} 
 	
 	pShip->move();
-//	pBullet_ship->move();
+	pBullet_ship->move();
 	alienFire();	
 }
 

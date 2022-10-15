@@ -29,7 +29,7 @@ int calcAlienSpeed(int aliensAlive) {
 	else if (aliensAlive<=40) 
 		delay = 30;
 	else
-		delay = 1;
+		delay = 40;
 	return delay; 
 }
 
@@ -98,6 +98,7 @@ void listAliens::move(){
 		alienMoveCounter=alienMoveDelay;
 		if (aliensAlive == 0) {
 			timer = 0;
+			level++;
 			gameState = stateAllAliensDead;
 		}
 	}	

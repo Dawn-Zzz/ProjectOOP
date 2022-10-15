@@ -1,7 +1,5 @@
 #include "Bullet.h"
 
-int level=1;
-
 bulletShip::initBullet(){
 	x=-20;
 	y=-20;

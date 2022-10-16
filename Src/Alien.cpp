@@ -36,20 +36,19 @@ int calcAlienSpeed(int aliensAlive) {
 listAliens::initAliens() {
 	for (int i=0;i<alienRows;i++)
 		for (int j=0; j<alienColumns; j++) {
-			aliens[i][j].x=j*alienHorzSpacing;
-			aliens[i][j].y=alienTopOffset+i*alienVertSpacing;
-			aliens[i][j].alive=true;
-			aliens[i][j].explosion=false;
+				aliens[i][j].x=j*alienHorzSpacing;
+				aliens[i][j].y=alienTopOffset+i*alienVertSpacing;
+				aliens[i][j].alive=true;
+				aliens[i][j].explosion=false;
 		}	
 }
 
 void listAliens::draw(RenderWindow& app) {
-	for (int i=0;i<alienRows;i++)
+	for (int i=0;i<alienRows;i++) {
 		for (int j=0; j<alienColumns; j++) {
 			if (aliens[i][j].alive==true) {
 				Sprite alien;
 				Texture t;
-				
 				if (i==0) 
 					t.loadFromFile("images/block01.png"); 
 				else if (i>0 && i<4) 
@@ -58,13 +57,13 @@ void listAliens::draw(RenderWindow& app) {
 //				if (alienMoveFrameCounter==0) 
 //					t.loadFromFile("images/block01.png");
 //				else 
-//					t.loadFromFile("images/block02.png");
-				
+//					t.loadFromFile("images/block02.png");				
 				alien.setTexture(t);
 				alien.setPosition(aliens[i][j].x,aliens[i][j].y);
 		     	app.draw(alien);
 			} 
     	}
+	}
 }
 
 void listAliens::move(){

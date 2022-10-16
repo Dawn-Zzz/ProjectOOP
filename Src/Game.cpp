@@ -155,16 +155,8 @@ void gameOver() {
 
 void allAliensDead() {
 	timer = timer + 1;
-	
-	Background.draw(app);
-	Bullet_ship.draw(app);
-	Ship.draw(app);
-	Aliens.drawExplosions(app);
-	drawScore();
-	
 	Font font;
 	font.loadFromFile("QuirkyRobot.ttf");
-		
 	Text round;
 	round.setFont(font);
 	round.setCharacterSize(50);
@@ -172,11 +164,22 @@ void allAliensDead() {
 	round.setFillColor(sf::Color::White);	
 	round.setPosition(415,270);
 	stringstream s;
-	s << level;
-	round.setString("Wave "+s.str());
-	app.draw(round);
 	
-	if (timer > 180) {
+	Background.draw(app);
+	Bullet_ship.draw(app);
+	Ship.draw(app);
+	Aliens.drawExplosions(app);
+	drawScore();
+	if (timer < 120) {	
+		s << level;
+		round.setString("Wave "+s.str());
+		app.draw(round);
+	} 
+	else if (timer<180) {
+		round.setString("Fight");
+		app.draw(round);
+	}
+	else {
 		Aliens.initAliens();
 		gameState = statePlayGame;
 	} 

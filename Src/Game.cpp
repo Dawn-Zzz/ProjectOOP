@@ -23,7 +23,7 @@ backGround Background;
 playerShip Ship;
 bulletShip Bullet_ship;
 listAliens Aliens;
-missileAlien Missile_alien[11];
+missileAlien Missile_alien[10];
 
 Action *pShip= new playerShip;
 Action *pBullet_ship= new bulletShip;

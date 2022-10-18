@@ -20,7 +20,7 @@ class Explosion	{
 class Alien:public Position {
 	public:
 		bool alive;
-		int height=20,width=42;
+		int height=32,width=32;
 		bool explosion=false;
 };
 

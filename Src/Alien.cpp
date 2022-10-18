@@ -1,6 +1,6 @@
 #include "Alien.h"
-int alienHorzSpacing = 150; //Khoang cach giua cac hang quai
-int alienVertSpacing = 35; // Khoang cach giua cac cot quai
+int alienHorzSpacing = 150; //Khoang cach giua cac cot quai
+int alienVertSpacing = 40; // Khoang cach giua cac hang quai
 int alienTopOffset = 40; //Khoang cach giua quai voi thanh man hinh tren 
 int alienDirection=1; 
 int alienSpeed=12; //Toc do quai chay ngang 
@@ -13,6 +13,8 @@ int alienMoveDelay=20;
 int alienMoveCounter=alienMoveDelay;
 int alienMoveNumFrames=2;
 int alienMoveFrameCounter=0;
+
+int maxMissile=1;
 
 Explosion explosions[8][6];
 
@@ -36,35 +38,37 @@ int calcAlienSpeed(int aliensAlive) {
 listAliens::initAliens() {
 	for (int i=0;i<alienRows;i++)
 		for (int j=0; j<alienColumns; j++) {
-			aliens[i][j].x=j*alienHorzSpacing;
-			aliens[i][j].y=alienTopOffset+i*alienVertSpacing;
-			aliens[i][j].alive=true;
-			aliens[i][j].explosion=false;
+				aliens[i][j].x=j*alienHorzSpacing;
+				aliens[i][j].y=alienTopOffset+i*alienVertSpacing;
+				aliens[i][j].alive=true;
+				aliens[i][j].explosion=false;
 		}	
 }
 
 void listAliens::draw(RenderWindow& app) {
-	for (int i=0;i<alienRows;i++)
+	for (int i=0;i<alienRows;i++) {
 		for (int j=0; j<alienColumns; j++) {
 			if (aliens[i][j].alive==true) {
 				Sprite alien;
 				Texture t;
-				
 				if (i==0) 
-					t.loadFromFile("images/block01.png"); 
+					t.loadFromFile("images/Alien1.png"); 
 				else if (i>0 && i<4) 
-					t.loadFromFile("images/block02.png"); 
-				else t.loadFromFile("images/block03.png");					
-//				if (alienMoveFrameCounter==0) 
-//					t.loadFromFile("images/block01.png");
-//				else 
-//					t.loadFromFile("images/block02.png");
-				
+					t.loadFromFile("images/Alien2.png"); 
+				else t.loadFromFile("images/Alien3.png");					
+				if (alienMoveFrameCounter==0) {
+					if (i==0)
+						t.loadFromFile("images/Alien1move.png");
+					else if (i>0 && i<4) 
+						t.loadFromFile("images/Alien2move.png");
+					else t.loadFromFile("images/Alien3move.png");
+				}				
 				alien.setTexture(t);
 				alien.setPosition(aliens[i][j].x,aliens[i][j].y);
 		     	app.draw(alien);
 			} 
     	}
+	}
 }
 
 void listAliens::move(){
@@ -99,6 +103,7 @@ void listAliens::move(){
 		if (aliensAlive == 0) {
 			timer = 0;
 			level++;
+			maxMissile=1;
 			gameState = stateAllAliensDead;
 		}
 	}	

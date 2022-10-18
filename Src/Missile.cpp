@@ -1,5 +1,4 @@
 #include "Missile.h"
-int maxMissile=1;
 
 missileAlien::initMissile(){
 	x=-20;

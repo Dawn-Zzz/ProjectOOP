@@ -9,8 +9,8 @@ using namespace sf;
 
 class bulletShip:public Position,public Action {
 	private:
-		int speed=10;
-		int height=20,width=4;
+		int speed=8;
+		int height=12,width=4;
 		bool active;
 	public:
 		initBullet();

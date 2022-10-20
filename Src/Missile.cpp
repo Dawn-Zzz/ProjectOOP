@@ -19,7 +19,7 @@ void missileAlien::checkFire(listAliens a){
 	int n = rand() % 6;
 	if (a.aliens[m][n].alive==true) {
 		if (!active) {
-			x=a.aliens[m][n].x+24;
+			x=a.aliens[m][n].x+14;
 			y=a.aliens[m][n].y+10;
 			active=true;
 		}

@@ -43,7 +43,7 @@ int statePlayGame = 1;
 int stateNewLife = 2;
 int stateGameOver = 3;
 int stateAllAliensDead = 4;
-int gameState = statePlayGame;
+int gameState = stateStartGame;
 
 int checkColor;
 
@@ -92,6 +92,9 @@ void drawScore(){
 }
 
 void initialiseGame(){
+	playerLives = 3;
+	score=0;
+	maxMissile=1;
 	Ship.initShip();
 	Aliens.initAliens();
 	Bullet_ship.initBullet();
@@ -122,8 +125,10 @@ void playGame () {
 void newLife(){
 	timer+=1;
 	if (timer>180) {
-		if (playerLives == 0) 
+		if (playerLives == 0) {
 			gameState = stateGameOver;
+			timer=0;
+		}
 		else {
 			Ship.initShip();
 			Bullet_ship.initBullet();
@@ -157,7 +162,14 @@ void gameOver() {
 	over.setPosition(415,270);
 	over.setString("You lose");
 	app.draw(over);
-	isPlaying = false;
+	timer+=1;
+	if (timer>180) {
+		isPlaying = false;
+		if	(isPlaying == false) {
+			gameNeedsToBeInitialised = true;
+			gameState = stateStartGame;
+		}
+	}
 }
 
 void allAliensDead() {
@@ -218,7 +230,7 @@ void MenuRun() {
 	nameGame.setPosition({210,100});
 	nameGame.setFont(fontMenu);
 	nameGame.setCharacterSize(80);
-	nameGame.setColor(Color::Red);
+	nameGame.setFillColor(Color::Red);
 
 	btn1.setPosition({410, 300});
 	btn1.setFont(fontMenu);
@@ -292,6 +304,7 @@ void Game::run()
 					case Event::MouseButtonReleased:
 						if(Event.mouseButton.button == Mouse::Left && checkColor == 1 && isPlaying == false) {
 	//						app.close();
+							gameState=statePlayGame;
 							isPlaying = true;
 						}
 						else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {
@@ -318,17 +331,18 @@ void Game::run()
 				loading.setString("Loading...");
 				app.draw(loading);
 				app.display(); 
-			}   
-			
-			//game play
-	   		if (gameState==statePlayGame)
-	   			playGame();
-	   		else if (gameState==stateNewLife)
-	   			newLife();
-	   		else if (gameState==stateGameOver) 
-	   			gameOver();
-	   		else if (gameState==stateAllAliensDead)
-				allAliensDead();
+			}  
+			else {
+				//game play
+		   		if (gameState==statePlayGame)
+		   			playGame();
+		   		else if (gameState==stateNewLife)
+		   			newLife();
+		   		else if (gameState==stateGameOver) 
+		   			gameOver();
+		   		else if (gameState==stateAllAliensDead)
+					allAliensDead();
+			}
 	    app.display();
 	    }
 	    else {

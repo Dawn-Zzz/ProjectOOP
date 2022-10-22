@@ -8,8 +8,8 @@ class playerShip:public Position,public Action {
 	private: 
 		bool alive;
 		int xmax=980,xmin=0,speed=5;
-		int width=42;
-		int height=20;
+		int width=20;
+		int height=42;
 		Sprite ship;
 		Texture t1;
 	public: 

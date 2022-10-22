@@ -134,7 +134,7 @@ void listAliens::drawExplosions(RenderWindow& app){
 			if (aliens[i][j].explosion==true){
 				Sprite e;
 				Texture t;
-				t.loadFromFile("images/block01.png");
+				t.loadFromFile("images/explotion.png");
 				e.setTexture(t);
 				e.setPosition(explosions[i][j].explosionX,explosions[i][j].explosionY);
 				app.draw(e);

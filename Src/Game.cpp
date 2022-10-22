@@ -223,17 +223,17 @@ void gameOver() {
 //	}
 //=======
 	
-	Font font;
-	font.loadFromFile("QuirkyRobot.ttf");
-	
-	Text over;
-	over.setFont(font);
-	over.setCharacterSize(50);
-	over.setStyle(sf::Text::Bold);
-	over.setFillColor(sf::Color::White);	
-	over.setPosition(415,270);
-	over.setString("You lose");
-	app.draw(over);
+//	Font font;
+//	font.loadFromFile("QuirkyRobot.ttf");
+//	
+//	Text over;
+//	over.setFont(font);
+//	over.setCharacterSize(50);
+//	over.setStyle(sf::Text::Bold);
+//	over.setFillColor(sf::Color::White);	
+//	over.setPosition(415,270);
+//	over.setString("You lose");
+//	app.draw(over);
 	timer+=1;
 	if (timer>180) {
 		isPlaying = false;

@@ -9,8 +9,8 @@ using namespace sf;
 
 class missileAlien:public Position,public Action{
 	private:
-		int speed=5;
-		int height=20,width=4;
+		int speed=4;
+		int height=8,width=4;
 		bool active=false;
 	public:
 		initMissile();

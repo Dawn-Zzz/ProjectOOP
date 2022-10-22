@@ -5,10 +5,15 @@
 #include "Alien.h"
 #include "Missile.h"
 #include "Variable.h"
+//<<<<<<< HEAD
 #include "Score.h"
+//=======
+#include "Menu.h"
+//>>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 using namespace sf;
 using namespace std;
 
@@ -43,7 +48,11 @@ int statePlayGame = 1;
 int stateNewLife = 2;
 int stateGameOver = 3;
 int stateAllAliensDead = 4;
-int gameState = statePlayGame;
+int gameState = stateStartGame;
+
+int checkColor;
+
+bool isPlaying = false;
 
 int timer=0;
 
@@ -105,6 +114,9 @@ void drawScore(){
 }
 
 void initialiseGame(){
+	playerLives = 3;
+	score=0;
+	maxMissile=1;
 	Ship.initShip();
 	Aliens.initAliens();
 	Bullet_ship.initBullet();
@@ -135,8 +147,10 @@ void playGame () {
 void newLife(){
 	timer+=1;
 	if (timer>180) {
-		if (playerLives == 0) 
+		if (playerLives == 0) {
 			gameState = stateGameOver;
+			timer=0;
+		}
 		else {
 			Ship.initShip();
 			Bullet_ship.initBullet();
@@ -158,6 +172,7 @@ void gameOver() {
 	Background.draw(app);
 	Aliens.draw(app);
 	drawScore();
+//<<<<<<< HEAD
 	//timer+=1;
 	Score a;
 	//if (timer>80) {
@@ -206,6 +221,28 @@ void gameOver() {
 			
 	}
 //	}
+//=======
+	
+	Font font;
+	font.loadFromFile("QuirkyRobot.ttf");
+	
+	Text over;
+	over.setFont(font);
+	over.setCharacterSize(50);
+	over.setStyle(sf::Text::Bold);
+	over.setFillColor(sf::Color::White);	
+	over.setPosition(415,270);
+	over.setString("You lose");
+	app.draw(over);
+	timer+=1;
+	if (timer>180) {
+		isPlaying = false;
+		if	(isPlaying == false) {
+			gameNeedsToBeInitialised = true;
+			gameState = stateStartGame;
+		}
+	}
+//>>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
 }
 
 
@@ -245,18 +282,63 @@ void allAliensDead() {
 	alienFire();	
 }
 
+Font fontMenu;
+Texture textureMenu;
+Text nameGame;
+Button btn1("PLAY", {200,50}, 30, Color::Cyan, Color::Red);
+Button btn2("ABOUT", {200,50}, 30, Color::Cyan, Color::Red);
+Button btn3("EXIT", {200,50}, 30, Color::Cyan, Color::Red);
+SoundBuffer soundMenu;
+Sound sfx;
+
+void MenuRun() {
+	
+	soundMenu.loadFromFile("sounds/swish.wav");
+	sfx.setBuffer(soundMenu);
+	
+	fontMenu.loadFromFile("font/upheavtt.ttf");
+	
+	textureMenu.loadFromFile("images/AmongUs.png");
+	
+	nameGame.setString("SPACE INVADERS");
+	nameGame.setPosition({210,100});
+	nameGame.setFont(fontMenu);
+	nameGame.setCharacterSize(80);
+	nameGame.setFillColor(Color::Red);
+
+	btn1.setPosition({410, 300});
+	btn1.setFont(fontMenu);
+	
+	btn2.setPosition({410, 400});
+	btn2.setFont(fontMenu);
+	
+	btn3.setPosition({410, 500});
+	btn3.setFont(fontMenu);
+}
+	
 
 void Game::run()
 {	
+//<<<<<<< HEAD
 	Font font;
 	font.loadFromFile("futureforcescondital.ttf");
 	Text loading;
 	loading.setFont(font);
+//=======
+	MenuRun();
+	Sprite sprite(textureMenu);
+	
+	Font fontLoading;
+	fontLoading.loadFromFile("font/futureforcescondital.ttf");
+	//Text loading;
+	loading.setFont(fontLoading);
+//>>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
 	loading.setFillColor(sf::Color::White);
 	loading.setPosition(310, 200);
 	loading.setCharacterSize(100);
 	Clock load;
 	load.restart();
+//<<<<<<< HEAD
     srand(time(NULL));
    	app.setFramerateLimit(60);
     while (app.isOpen()){
@@ -291,5 +373,104 @@ void Game::run()
 				allAliensDead();
 	    	app.display();
 		     
+//=======
+	
+    srand(time(NULL));
+   	app.setFramerateLimit(60);
+    while(app.isOpen()) {
+		Event Event;
+		if(Keyboard::isKeyPressed(Keyboard::Return)) {
+			
+		}
+		while (app.pollEvent(Event)) {
+			if(Event.type == Event::Closed) 
+				app.close();
+		    if(isPlaying == false) {
+		    	switch(Event.type) {
+		    		case Event::MouseMoved:
+						//btn1
+						if(btn1.isMouseOver(app)) {
+							btn1.setBackColor(Color::Cyan);
+							checkColor = 1;
+							sfx.play();
+						}
+						else {
+							btn1.setBackColor(Color::White);
+							checkColor = 0;
+						}
+						//btn2
+						if(btn2.isMouseOver(app)) {
+							btn2.setBackColor(Color::Cyan);
+							checkColor = 2;
+							sfx.play();
+						}
+						else {
+							btn2.setBackColor(Color::White);
+	//						checkColor = 0;
+						}
+						//btn3
+						if(btn3.isMouseOver(app)) {
+							btn3.setBackColor(Color::Cyan);
+							checkColor = 3;
+							sfx.play();
+						}
+						else {
+							btn3.setBackColor(Color::White);
+	//						checkColor = 0;
+						}
+					case Event::MouseButtonReleased:
+						if(Event.mouseButton.button == Mouse::Left && checkColor == 1 && isPlaying == false) {
+	//						app.close();
+							gameState=statePlayGame;
+							isPlaying = true;
+						}
+						else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {
+	//						check = 2;
+						}
+						else if(Event.mouseButton.button == Mouse::Left && checkColor == 3) {
+							app.close();
+						}
+				}
+			}
+		}
+   		app.clear();
+		if(isPlaying) {
+			//Loading
+			if (load.getElapsedTime().asSeconds() < 3) {
+				loading.setString("Loading.");
+				app.clear();
+				//Background.draw(app);
+				app.draw(loading);
+				app.display();
+				
+				app.clear();
+				//Background.draw(app);
+				loading.setString("Loading...");
+				app.draw(loading);
+				app.display(); 
+			}  
+			else {
+				//game play
+		   		if (gameState==statePlayGame)
+		   			playGame();
+		   		else if (gameState==stateNewLife)
+		   			newLife();
+		   		else if (gameState==stateGameOver) 
+		   			gameOver();
+		   		else if (gameState==stateAllAliensDead)
+					allAliensDead();
+			}
+	    app.display();
+	    }
+	    else {
+		    app.draw(sprite);
+		    app.draw(nameGame);
+			btn1.drawTo(app);
+			btn2.drawTo(app);
+			btn3.drawTo(app);
+			app.display();
+		}	
+//>>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
 	}
+}
 }

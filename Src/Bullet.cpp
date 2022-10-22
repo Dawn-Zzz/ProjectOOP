@@ -23,8 +23,8 @@ void bulletShip::move() {
 
 void bulletShip::draw(RenderWindow& app) {
 	if (active) {
-		RectangleShape bullet(sf::Vector2f(4, 20)); 
-		bullet.setFillColor(Color::Green);
+		RectangleShape bullet(sf::Vector2f(4, 16)); 
+		bullet.setFillColor(Color::Red);
 		bullet.setPosition(x,y);
 		app.draw(bullet);
 	}

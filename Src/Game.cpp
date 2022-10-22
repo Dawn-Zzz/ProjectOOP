@@ -201,7 +201,9 @@ void gameOver() {
 		over.setFillColor(sf::Color::White);	
 		over.setPosition(415,260);
 		over.setString("You Lose");
-		app.draw(over);		
+		app.draw(over);
+		
+			
 	}
 //	}
 }

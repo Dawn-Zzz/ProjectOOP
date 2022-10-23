@@ -186,15 +186,13 @@ void gameOver() {
 		a.writeFile();
 		stringstream s1,s2;
 		Font font;
-		font.loadFromFile("upheavtt.ttf");//QuirkyRobot.ttf
+		font.loadFromFile("upheavtt.ttf");
 		Text currentScore;
 		currentScore.setFont(font);
 		currentScore.setCharacterSize(50);
 		currentScore.setStyle(sf::Text::Bold);
 		currentScore.setFillColor(sf::Color::Green);
 		s1 <<a.getCurrentScore();
-//			text.setString("Your Score "+ss.str());
-//			text.setPosition(345,290);
 		currentScore.setString("Your Score "+s1.str());
 		currentScore.setPosition(345,290);
 		app.draw(currentScore);
@@ -220,20 +218,6 @@ void gameOver() {
 		
 			
 	}
-//	}
-//=======
-	
-//	Font font;
-//	font.loadFromFile("QuirkyRobot.ttf");
-//	
-//	Text over;
-//	over.setFont(font);
-//	over.setCharacterSize(50);
-//	over.setStyle(sf::Text::Bold);
-//	over.setFillColor(sf::Color::White);	
-//	over.setPosition(415,270);
-//	over.setString("You lose");
-//	app.draw(over);
 	timer+=1;
 	if (timer>180) {
 		isPlaying = false;

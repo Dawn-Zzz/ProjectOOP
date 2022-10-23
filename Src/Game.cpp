@@ -182,12 +182,8 @@ void gameOver() {
 	timer+=1;
 	if (timer>180) {
 		isPlaying = false;
-<<<<<<< HEAD
 		isOver = true;
 		if	(isPlaying == false && isOver == true) {
-=======
-		if	(isPlaying == false) {
->>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
 			gameNeedsToBeInitialised = true;
 			gameState = stateStartGame;
 		}
@@ -246,7 +242,6 @@ void MenuRun() {
 	nameGame.setPosition({210,100});
 	nameGame.setFont(fontMenu);
 	nameGame.setCharacterSize(80);
-<<<<<<< HEAD
 	nameGame.setColor({244,208,104,250});
 	
 	subName.setString("Main menu");
@@ -254,9 +249,6 @@ void MenuRun() {
 	subName.setFont(fontMenu);
 	subName.setCharacterSize(40);
 	subName.setColor({244,208,104,200});
-=======
-	nameGame.setFillColor(Color::Red);
->>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
 
 	btn1.setPosition({410, 300});
 	btn1.setFont(fontMenu);
@@ -350,10 +342,7 @@ void Game::run()
 					case Event::MouseButtonReleased:
 						if(Event.mouseButton.button == Mouse::Left && checkColor == 1 && isPlaying == false) {
 	//						app.close();
-<<<<<<< HEAD
 							sfx2.play();
-=======
->>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
 							gameState=statePlayGame;
 							isPlaying = true;
 						}
@@ -420,11 +409,7 @@ void Game::run()
 				//Background.draw(app);
 				loading.setString("Loading...");
 				app.draw(loading);
-<<<<<<< HEAD
 //				app.display(); 
-=======
-				app.display(); 
->>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
 			}  
 			else {
 				//game play

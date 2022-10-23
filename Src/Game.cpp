@@ -115,6 +115,8 @@ void initialiseGame(){
 	Ship.initShip();
 	Aliens.initAliens();
 	Bullet_ship.initBullet();
+	for (int i=0;i<maxMissile;i++) 
+		Missile_alien[i].initMissile();
 }
 
 void playGame () {
@@ -285,6 +287,10 @@ void Game::run()
 {	
 	MenuRun();
 	Sprite sprite(textureMenu);
+	
+	Image icon;
+	icon.loadFromFile("images/icon.png");
+	app.setIcon(icon.getSize().x,icon.getSize().y,icon.getPixelsPtr());
 	
 	Font fontLoading;
 	fontLoading.loadFromFile("font/futureforcescondital.ttf");

@@ -31,7 +31,7 @@ int calcAlienSpeed(int aliensAlive) {
 	else if (aliensAlive<=40) 
 		delay = 30;
 	else
-		delay = 3;
+		delay = 40;
 	return delay; 
 }
 
@@ -93,8 +93,10 @@ void listAliens::move(){
 					if (aliens[i][j].alive==true) {
 						aliens[i][j].x=aliens[i][j].x+alienSpeed*alienDirection;
 						aliensAlive=aliensAlive+1;
-						if (aliens[i][j].y > alienMaxY)
+						if (aliens[i][j].y > alienMaxY){
+							timer=0;
 							gameState = stateGameOver;
+						}
 					}
 				}
 		}

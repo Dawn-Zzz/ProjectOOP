@@ -7,7 +7,7 @@ missileAlien::initMissile(){
 
 void missileAlien::draw(RenderWindow& app) {
 	if (active) {
-		RectangleShape missile(sf::Vector2f(4, 20)); 
+		RectangleShape missile(sf::Vector2f(4, 8)); 
 		missile.setFillColor(Color::Yellow);
 		missile.setPosition(x,y);
 		app.draw(missile);

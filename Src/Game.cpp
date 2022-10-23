@@ -30,6 +30,22 @@ missileAlien Missile_alien[10];
 Action *pShip= new playerShip;
 Action *pBullet_ship= new bulletShip;
 
+Font fontMenu;
+Texture textureMenu;
+Text nameGame;
+Text subName;
+Text overName;
+Button btn1("PLAY", {200,50}, 30, Color::White, {229,88,96,250});
+Button btn2("ABOUT", {200,50}, 30, Color::White, {229,88,96,250});
+Button btn3("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
+SoundBuffer soundMenu;
+SoundBuffer soundClick;
+Sound sfx;
+Sound sfx2;
+
+Button btn_over1("MAIN MENU", {200,50}, 30, Color::White, {229,88,96,250});
+Button btn_over2("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
+
 bool gameNeedsToBeInitialised=true;
 
 int playerLives = 3;
@@ -43,11 +59,12 @@ int statePlayGame = 1;
 int stateNewLife = 2;
 int stateGameOver = 3;
 int stateAllAliensDead = 4;
-int gameState = statePlayGame;
+int gameState = stateStartGame;
 
 int checkColor;
 
 bool isPlaying = false;
+bool isOver = false;
 
 int timer=0;
 
@@ -92,6 +109,9 @@ void drawScore(){
 }
 
 void initialiseGame(){
+	playerLives = 3;
+	score=0;
+	maxMissile=1;
 	Ship.initShip();
 	Aliens.initAliens();
 	Bullet_ship.initBullet();
@@ -122,8 +142,10 @@ void playGame () {
 void newLife(){
 	timer+=1;
 	if (timer>180) {
-		if (playerLives == 0) 
+		if (playerLives == 0) {
 			gameState = stateGameOver;
+			timer=0;
+		}
 		else {
 			Ship.initShip();
 			Bullet_ship.initBullet();
@@ -157,7 +179,15 @@ void gameOver() {
 	over.setPosition(415,270);
 	over.setString("You lose");
 	app.draw(over);
-	isPlaying = false;
+	timer+=1;
+	if (timer>180) {
+		isPlaying = false;
+		isOver = true;
+		if	(isPlaying == false && isOver == true) {
+			gameNeedsToBeInitialised = true;
+			gameState = stateStartGame;
+		}
+	}
 }
 
 void allAliensDead() {
@@ -196,19 +226,13 @@ void allAliensDead() {
 	alienFire();	
 }
 
-Font fontMenu;
-Texture textureMenu;
-Text nameGame;
-Button btn1("PLAY", {200,50}, 30, Color::Cyan, Color::Red);
-Button btn2("ABOUT", {200,50}, 30, Color::Cyan, Color::Red);
-Button btn3("EXIT", {200,50}, 30, Color::Cyan, Color::Red);
-SoundBuffer soundMenu;
-Sound sfx;
-
 void MenuRun() {
 	
-	soundMenu.loadFromFile("sounds/swish.wav");
+	soundMenu.loadFromFile("sounds/move_effect.wav");
 	sfx.setBuffer(soundMenu);
+	
+	soundClick.loadFromFile("sounds/click-effect.wav");
+	sfx2.setBuffer(soundClick);
 	
 	fontMenu.loadFromFile("font/upheavtt.ttf");
 	
@@ -218,7 +242,13 @@ void MenuRun() {
 	nameGame.setPosition({210,100});
 	nameGame.setFont(fontMenu);
 	nameGame.setCharacterSize(80);
-	nameGame.setColor(Color::Red);
+	nameGame.setColor({244,208,104,250});
+	
+	subName.setString("Main menu");
+	subName.setPosition({405,200});
+	subName.setFont(fontMenu);
+	subName.setCharacterSize(40);
+	subName.setColor({244,208,104,200});
 
 	btn1.setPosition({410, 300});
 	btn1.setFont(fontMenu);
@@ -229,7 +259,27 @@ void MenuRun() {
 	btn3.setPosition({410, 500});
 	btn3.setFont(fontMenu);
 }
+
+void MenuOver() {
 	
+	nameGame.setString("SPACE INVADERS");
+	nameGame.setPosition({210,100});
+	nameGame.setFont(fontMenu);
+	nameGame.setCharacterSize(80);
+	nameGame.setColor({244,208,104,250});
+	
+	overName.setString("Game over");
+	overName.setPosition({405,200});
+	overName.setFont(fontMenu);
+	overName.setCharacterSize(40);
+	overName.setColor({244,208,104,200});
+	
+	btn_over1.setPosition2({410,350});
+	btn_over1.setFont(fontMenu);
+	
+	btn_over2.setPosition2({410,450});
+	btn_over2.setFont(fontMenu);
+}	
 
 void Game::run()
 {	
@@ -256,12 +306,12 @@ void Game::run()
 		while (app.pollEvent(Event)) {
 			if(Event.type == Event::Closed) 
 				app.close();
-		    if(isPlaying == false) {
+		    if(isPlaying == false && isOver == false) {
 		    	switch(Event.type) {
 		    		case Event::MouseMoved:
 						//btn1
 						if(btn1.isMouseOver(app)) {
-							btn1.setBackColor(Color::Cyan);
+							btn1.setBackColor({33,66,120,200});
 							checkColor = 1;
 							sfx.play();
 						}
@@ -271,7 +321,7 @@ void Game::run()
 						}
 						//btn2
 						if(btn2.isMouseOver(app)) {
-							btn2.setBackColor(Color::Cyan);
+							btn2.setBackColor({33,66,120,200});
 							checkColor = 2;
 							sfx.play();
 						}
@@ -281,7 +331,7 @@ void Game::run()
 						}
 						//btn3
 						if(btn3.isMouseOver(app)) {
-							btn3.setBackColor(Color::Cyan);
+							btn3.setBackColor({33,66,120,200});
 							checkColor = 3;
 							sfx.play();
 						}
@@ -292,52 +342,106 @@ void Game::run()
 					case Event::MouseButtonReleased:
 						if(Event.mouseButton.button == Mouse::Left && checkColor == 1 && isPlaying == false) {
 	//						app.close();
+							sfx2.play();
+							gameState=statePlayGame;
 							isPlaying = true;
 						}
 						else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {
 	//						check = 2;
+							sfx2.play();
 						}
 						else if(Event.mouseButton.button == Mouse::Left && checkColor == 3) {
+							sfx2.play();
+							app.close();
+						}
+				}
+			}
+			if(isOver == true) {
+		    	switch(Event.type) {
+		    		case Event::MouseMoved:
+						//btn1
+						if(btn_over1.isMouseOver(app)) {
+							btn_over1.setBackColor({33,66,120,200});
+							checkColor = 1;
+							sfx.play();
+						}
+						else {
+							btn_over1.setBackColor(Color::White);
+							checkColor = 0;
+						}
+						//btn_over2
+						if(btn_over2.isMouseOver(app)) {
+							btn_over2.setBackColor({33,66,120,200});
+							checkColor = 2;
+							sfx.play();
+						}
+						else {
+							btn_over2.setBackColor(Color::White);
+	//						checkColor = 0;
+						}
+					case Event::MouseButtonReleased:
+						if(Event.mouseButton.button == Mouse::Left && checkColor == 1) {
+	//						app.close();
+							if(isPlaying == false) {
+								sfx2.play();
+//								gameState=statePlayGame;
+								isOver = false;
+							}
+						}
+						else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {
+							sfx2.play();
 							app.close();
 						}
 				}
 			}
 		}
    		app.clear();
-		if(isPlaying) {
+		if(isPlaying == true && isOver == false) {
 			//Loading
 			if (load.getElapsedTime().asSeconds() < 3) {
 				loading.setString("Loading.");
 				app.clear();
 				//Background.draw(app);
 				app.draw(loading);
-				app.display();
+//				app.display();
 				
 				app.clear();
 				//Background.draw(app);
 				loading.setString("Loading...");
 				app.draw(loading);
-				app.display(); 
-			}   
-			
-			//game play
-	   		if (gameState==statePlayGame)
-	   			playGame();
-	   		else if (gameState==stateNewLife)
-	   			newLife();
-	   		else if (gameState==stateGameOver) 
-	   			gameOver();
-	   		else if (gameState==stateAllAliensDead)
-				allAliensDead();
+//				app.display(); 
+			}  
+			else {
+				//game play
+		   		if (gameState==statePlayGame)
+		   			playGame();
+		   		else if (gameState==stateNewLife)
+		   			newLife();
+		   		else if (gameState==stateGameOver) 
+		   			gameOver();
+		   		else if (gameState==stateAllAliensDead)
+					allAliensDead();
+			}
 	    app.display();
 	    }
-	    else {
+	    else if(isPlaying == false && isOver == false){
 		    app.draw(sprite);
 		    app.draw(nameGame);
+		    app.draw(subName);
 			btn1.drawTo(app);
 			btn2.drawTo(app);
 			btn3.drawTo(app);
 			app.display();
 		}	
+		else if(isPlaying == false && isOver == true) {
+				MenuOver();
+			app.draw(sprite);
+			app.draw(nameGame);
+			app.draw(overName);
+			btn_over1.drawTo(app);
+			btn_over2.drawTo(app);
+			app.display();
+		}
+		
 	}
 }

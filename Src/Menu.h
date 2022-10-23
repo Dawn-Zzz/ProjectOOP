@@ -14,6 +14,7 @@ class Button {
 		void setBackColor(Color color);
 		void setTextColor(Color color);
 		void setPosition(Vector2f pos);
+		void setPosition2(Vector2f pos2);
 		void drawTo(RenderWindow &window);
 		bool isMouseOver(RenderWindow &window);
 	private:

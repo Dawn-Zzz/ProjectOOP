@@ -3,7 +3,7 @@ int alienHorzSpacing = 150; //Khoang cach giua cac cot quai
 int alienVertSpacing = 40; // Khoang cach giua cac hang quai
 int alienTopOffset = 40; //Khoang cach giua quai voi thanh man hinh tren 
 int alienDirection=1; 
-int alienSpeed=12; //Toc do quai chay ngang 
+int alienSpeed=5; //Toc do quai chay ngang 
 int alienVertSpeed=12; //Khoang cach quai xuong dong 
 int alienMaxX=980; int alienMinX=0; //Gioi han toa do quai di chuyen
 int alienMaxY = 510;
@@ -31,7 +31,7 @@ int calcAlienSpeed(int aliensAlive) {
 	else if (aliensAlive<=40) 
 		delay = 30;
 	else
-		delay = 40;
+		delay = 3;
 	return delay; 
 }
 

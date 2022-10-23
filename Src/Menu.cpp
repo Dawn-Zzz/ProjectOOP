@@ -31,6 +31,13 @@ void Button::setPosition(Vector2f pos) {
 	text.setPosition({xPos, yPos});
 }
 
+void Button::setPosition2(Vector2f pos2) {
+	button.setPosition(pos2);
+	float xPos2 = (pos2.x + button.getLocalBounds().width / 2) - (text.getLocalBounds().width / 2);
+	float yPos2 = (pos2.y + button.getLocalBounds().height / 5) - (text.getLocalBounds().height / 2);
+	text.setPosition({xPos2, yPos2});
+}
+
 void Button::drawTo(RenderWindow &window) {
 	window.draw(button);
 	window.draw(text);

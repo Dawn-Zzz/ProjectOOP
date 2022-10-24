@@ -8,7 +8,10 @@ Score::Score()
 {
 	Num = 5;
 	//readFile();
-	currentScore;
+	currentScore = 0;
+	for(int i=0;i < Num;i++){
+		HighScore[i]=0;
+	}
 //	writeFile();
 	
 	//printScores();

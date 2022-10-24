@@ -1,14 +1,25 @@
 [Editors]
+<<<<<<< HEAD
 Order=0,4,3,6,5,10,9,12,11,8,7,2,1,13,14,15
-Focused=15
+Focused=4
 [Editor_0]
 CursorCol=2
 CursorRow=7
+=======
+<<<<<<< HEAD
+Order=0,4,12,11,14,15,7,3,10
+Focused=4
+TopLine=1
+LeftChar=1
+[Editor_0]
+CursorCol=2
+CursorRow=9
+>>>>>>> f903153dba93555d883728879353344c73349f55
 TopLine=1
 LeftChar=1
 [Editor_1]
-CursorCol=1
-CursorRow=1
+CursorCol=7
+CursorRow=16
 TopLine=1
 LeftChar=1
 [Editor_2]
@@ -17,14 +28,24 @@ CursorRow=4
 TopLine=1
 LeftChar=1
 [Editor_3]
+<<<<<<< HEAD
 CursorCol=11
+=======
+CursorCol=13
+>>>>>>> f903153dba93555d883728879353344c73349f55
 CursorRow=4
 TopLine=1
 LeftChar=1
 [Editor_4]
-CursorCol=23
-CursorRow=170
-TopLine=162
+<<<<<<< HEAD
+CursorCol=37
+CursorRow=192
+TopLine=463
+=======
+CursorCol=69
+CursorRow=293
+TopLine=1
+>>>>>>> f903153dba93555d883728879353344c73349f55
 LeftChar=1
 [Editor_5]
 CursorCol=16
@@ -42,9 +63,9 @@ CursorRow=1
 TopLine=1
 LeftChar=1
 [Editor_8]
-CursorCol=61
-CursorRow=61
-TopLine=1
+CursorCol=33
+CursorRow=27
+TopLine=13
 LeftChar=1
 [Editor_9]
 CursorCol=25
@@ -52,6 +73,7 @@ CursorRow=23
 TopLine=7
 LeftChar=1
 [Editor_10]
+<<<<<<< HEAD
 CursorCol=6
 CursorRow=64
 TopLine=95
@@ -65,19 +87,60 @@ LeftChar=1
 CursorCol=28
 CursorRow=12
 TopLine=1
+=======
+CursorCol=13
+CursorRow=34
+TopLine=87
+LeftChar=1
+[Editor_11]
+CursorCol=1
+CursorRow=1
+TopLine=1
+LeftChar=1
+[Editor_12]
+CursorCol=43
+CursorRow=10
+TopLine=11
+>>>>>>> f903153dba93555d883728879353344c73349f55
 LeftChar=1
 [Editor_13]
 CursorCol=1
 CursorRow=1
-TopLine=8
+TopLine=1
 LeftChar=1
 [Editor_14]
+<<<<<<< HEAD
 CursorCol=20
 CursorRow=11
 TopLine=1
 LeftChar=1
 [Editor_15]
-CursorCol=2
+CursorCol=1
 CursorRow=18
-TopLine=2
+TopLine=13
 LeftChar=1
+=======
+CursorCol=1
+CursorRow=1
+TopLine=1
+LeftChar=1
+[Editor_15]
+CursorCol=1
+CursorRow=1
+TopLine=1
+LeftChar=1
+=======
+Order=0,4
+Focused=4
+[Editor_0]
+CursorCol=2
+CursorRow=9
+TopLine=1
+LeftChar=1
+[Editor_4]
+CursorCol=18
+CursorRow=221
+TopLine=1
+LeftChar=1
+>>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
+>>>>>>> f903153dba93555d883728879353344c73349f55

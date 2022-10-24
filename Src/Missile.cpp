@@ -7,7 +7,7 @@ missileAlien::initMissile(){
 
 void missileAlien::draw(RenderWindow& app) {
 	if (active) {
-		RectangleShape missile(sf::Vector2f(4, 20)); 
+		RectangleShape missile(sf::Vector2f(4, 8)); 
 		missile.setFillColor(Color::Yellow);
 		missile.setPosition(x,y);
 		app.draw(missile);
@@ -19,7 +19,7 @@ void missileAlien::checkFire(listAliens a){
 	int n = rand() % 6;
 	if (a.aliens[m][n].alive==true) {
 		if (!active) {
-			x=a.aliens[m][n].x+24;
+			x=a.aliens[m][n].x+14;
 			y=a.aliens[m][n].y+10;
 			active=true;
 		}

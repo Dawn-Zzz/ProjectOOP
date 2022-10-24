@@ -28,8 +28,12 @@ Folders=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
+<<<<<<< HEAD
 CompilerSettings=00000000c0000000001000000
-UnitCount=16
+=======
+CompilerSettings=00000000c0000000000000000
+>>>>>>> f903153dba93555d883728879353344c73349f55
+UnitCount=18
 
 [VersionInfo]
 Major=1
@@ -189,6 +193,7 @@ Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+<<<<<<< HEAD
 
 [Unit15]
 FileName=Score.h
@@ -202,6 +207,41 @@ BuildCmd=
 
 [Unit16]
 FileName=Score.cpp
+=======
+
+[Unit16]
+FileName=Menu.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit15]
+FileName=Menu.h
+>>>>>>> f903153dba93555d883728879353344c73349f55
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit17]
+FileName=Score.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit18]
+FileName=Score.h
 CompileCpp=1
 Folder=
 Compile=1

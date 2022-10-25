@@ -6,6 +6,7 @@
 #include "Missile.h"
 #include "Variable.h"
 #include "Menu.h"
+#include "Score.h"
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
@@ -20,12 +21,14 @@ class playerShip;
 class bulletShip;
 class listAliens;
 class missileAlien;
+class Score;
 
 backGround Background;
 playerShip Ship;
 bulletShip Bullet_ship;
 listAliens Aliens;
 missileAlien Missile_alien[10];
+Score a;
 
 Action *pShip= new playerShip;
 Action *pBullet_ship= new bulletShip;
@@ -167,19 +170,41 @@ void newLife(){
 }
 
 void gameOver() {
-	Background.draw(app);
-	Aliens.draw(app);
-	drawScore();
 	
+	Background.draw(app);
 	Font font;
 	font.loadFromFile("font/upheavtt.ttf");
-	
+	a.readFile();
+	a.setCurrentScore();
+	a.UpdateHighScore();
+	a.writeFile();
+	stringstream s1,s2;
+	Text currentScore;
+	currentScore.setFont(font);
+	currentScore.setCharacterSize(50);
+	currentScore.setStyle(sf::Text::Bold);
+	currentScore.setFillColor(sf::Color::Green);
+	s1 <<a.getCurrentScore();
+	currentScore.setString("Your Score "+s1.str());
+	currentScore.setPosition(345,270);
+	app.draw(currentScore);
+		
+	Text bestscore;
+	bestscore.setFont(font);
+	bestscore.setCharacterSize(50);
+	bestscore.setStyle(sf::Text::Bold);
+	bestscore.setFillColor(sf::Color::Green);
+	bestscore.setPosition(345,300);
+	s2 << a.getBestScore();
+	bestscore.setString("Best Score "+s2.str());
+	app.draw(bestscore);
+		
 	Text over;
 	over.setFont(font);
 	over.setCharacterSize(50);
 	over.setStyle(sf::Text::Bold);
 	over.setFillColor(sf::Color::White);	
-	over.setPosition(415,270);
+	over.setPosition(415,240);
 	over.setString("You lose");
 	app.draw(over);
 	timer+=1;

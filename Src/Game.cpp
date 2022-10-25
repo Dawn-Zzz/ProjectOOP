@@ -62,6 +62,7 @@ int stateAllAliensDead = 4;
 int gameState = stateStartGame;
 
 int checkColor;
+int checkColor2;
 
 bool isPlaying = false;
 bool isOver = false;
@@ -368,7 +369,7 @@ void Game::run()
 						//btn1
 						if(btn_over1.isMouseOver(app)) {
 							btn_over1.setBackColor({33,66,120,200});
-							checkColor = 1;
+							checkColor2 = 1;
 							sfx.play();
 						}
 						else {
@@ -378,7 +379,7 @@ void Game::run()
 						//btn_over2
 						if(btn_over2.isMouseOver(app)) {
 							btn_over2.setBackColor({33,66,120,200});
-							checkColor = 2;
+							checkColor2 = 2;
 							sfx.play();
 						}
 						else {
@@ -386,7 +387,7 @@ void Game::run()
 	//						checkColor = 0;
 						}
 					case Event::MouseButtonReleased:
-						if(Event.mouseButton.button == Mouse::Left && checkColor == 1) {
+						if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {
 	//						app.close();
 							if(isPlaying == false) {
 								sfx2.play();
@@ -394,7 +395,7 @@ void Game::run()
 								isOver = false;
 							}
 						}
-						else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {
+						else if(Event.mouseButton.button == Mouse::Left && checkColor2 == 2) {
 							sfx2.play();
 							app.close();
 						}

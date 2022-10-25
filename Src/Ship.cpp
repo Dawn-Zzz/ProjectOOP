@@ -3,7 +3,7 @@
 playerShip::initShip() {
 	alive=true;
 	x=470,y=530;
-	t1.loadFromFile("images/ship.png");
+	t1.loadFromFile("images/spaceship.png");
 	ship.setTexture(t1);
 	ship.setPosition(x,y);
 }

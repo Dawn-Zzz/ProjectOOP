@@ -86,7 +86,7 @@ void alienFire(){
 
 void drawScore(){
 	Font font;
-	font.loadFromFile("QuirkyRobot.ttf");
+	font.loadFromFile("font/upheavtt.ttf");
 	Text scoreText;
 	scoreText.setFont(font);
 	scoreText.setCharacterSize(30);
@@ -103,7 +103,7 @@ void drawScore(){
 	lives.setCharacterSize(30);
 	lives.setStyle(sf::Text::Bold);
 	lives.setFillColor(sf::Color::White);	
-	lives.setPosition(920,0);
+	lives.setPosition(890,0);
 	s2 << playerLives;
 	lives.setString("Lives "+s2.str());
 	app.draw(lives);
@@ -172,7 +172,7 @@ void gameOver() {
 	drawScore();
 	
 	Font font;
-	font.loadFromFile("QuirkyRobot.ttf");
+	font.loadFromFile("font/upheavtt.ttf");
 	
 	Text over;
 	over.setFont(font);
@@ -196,7 +196,7 @@ void gameOver() {
 void allAliensDead() {
 	timer = timer + 1;
 	Font font;
-	font.loadFromFile("QuirkyRobot.ttf");
+	font.loadFromFile("font/upheavtt.ttf");
 	Text round;
 	round.setFont(font);
 	round.setCharacterSize(50);
@@ -410,13 +410,13 @@ void Game::run()
 				app.clear();
 				//Background.draw(app);
 				app.draw(loading);
-//				app.display();
+				app.display();
 				
 				app.clear();
 				//Background.draw(app);
 				loading.setString("Loading...");
 				app.draw(loading);
-//				app.display(); 
+				app.display(); 
 			}  
 			else {
 				//game play

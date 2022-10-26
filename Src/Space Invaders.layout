@@ -1,7 +1,7 @@
 [Editors]
 <<<<<<< HEAD
-Order=0,12,11,14,15,7,3,10,5,6,8
-Focused=15
+Order=0,4,16,17,19,15,14
+Focused=4
 [Editor_0]
 CursorCol=2
 CursorRow=9
@@ -23,9 +23,9 @@ CursorRow=4
 TopLine=1
 LeftChar=1
 [Editor_4]
-CursorCol=1
-CursorRow=419
-TopLine=393
+CursorCol=24
+CursorRow=442
+TopLine=424
 LeftChar=1
 [Editor_5]
 CursorCol=14
@@ -80,7 +80,7 @@ LeftChar=1
 [Editor_15]
 CursorCol=31
 CursorRow=12
-TopLine=1
+TopLine=19
 LeftChar=1
 =======
 Order=0,4
@@ -96,3 +96,23 @@ CursorRow=221
 TopLine=1
 LeftChar=1
 >>>>>>> 86ce35438fe28f3ccfa2297775bc360597f773f8
+[Editor_16]
+CursorCol=27
+CursorRow=24
+TopLine=7
+LeftChar=1
+[Editor_17]
+CursorCol=32
+CursorRow=54
+TopLine=44
+LeftChar=1
+[Editor_18]
+CursorCol=1
+CursorRow=1
+TopLine=1
+LeftChar=1
+[Editor_19]
+CursorCol=4
+CursorRow=59
+TopLine=40
+LeftChar=1

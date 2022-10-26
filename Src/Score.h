@@ -3,27 +3,30 @@
 #include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+using namespace std;
 
+class Information {
+	public:
+		int HighScore;
+		string Name;
+};
 
 class Score{
 	private:
+		Information infor[5];
 		int currentScore;
-		int HighScore[5] ;
-		//int Num;
+		int Num=5;
 	public:
 		Score();
 		void setCurrentScore();
 		int getCurrentScore();
 
+		void setLast(string name);
 		void UpdateHighScore();
-
+		
 		int getBestScore();
-
+		int getLastScore();
+		
 		void readFile();
 		void writeFile();
-
-		int* getHighScore();
-		//int getNum();
-
-		void printScores();
 };

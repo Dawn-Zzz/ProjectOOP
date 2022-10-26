@@ -7,6 +7,7 @@
 #include "Variable.h"
 #include "Menu.h"
 #include "Score.h"
+#include "Textbox.h"
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
@@ -34,20 +35,32 @@ Action *pShip= new playerShip;
 Action *pBullet_ship= new bulletShip;
 
 Font fontMenu;
+Font fontTextBox;
+Font fontLoading;
+
 Texture textureMenu;
+
+Text loading;
 Text nameGame;
 Text subName;
 Text overName;
+
 Button btn1("PLAY", {200,50}, 30, Color::White, {229,88,96,250});
 Button btn2("ABOUT", {200,50}, 30, Color::White, {229,88,96,250});
 Button btn3("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
+
 SoundBuffer soundMenu;
 SoundBuffer soundClick;
+
 Sound sfx;
 Sound sfx2;
 
 Button btn_over1("MAIN MENU", {200,50}, 30, Color::White, {229,88,96,250});
 Button btn_over2("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
+
+Button btn_submit ("SUBMIT",{200,50},30,Color::White, {229,88,96,250});
+
+Textbox textbox1(40,sf::Color::White, true);
 
 bool gameNeedsToBeInitialised=true;
 
@@ -67,6 +80,7 @@ int gameState = stateStartGame;
 int checkColor;
 int checkColor2;
 
+bool isInput = false;
 bool isPlaying = false;
 bool isOver = false;
 
@@ -213,15 +227,13 @@ void gameOver() {
 	font.loadFromFile("font/upheavtt.ttf");
 	a.readFile();
 	a.setCurrentScore();
-	a.UpdateHighScore();
-	a.writeFile();
 	stringstream s1,s2;
 	Text currentScore;
 	currentScore.setFont(font);
 	currentScore.setCharacterSize(50);
 	currentScore.setStyle(sf::Text::Bold);
 	currentScore.setFillColor(sf::Color::Green);
-	s1 <<a.getCurrentScore();
+	s1 << a.getCurrentScore();
 	currentScore.setString("Your Score "+s1.str());
 	currentScore.setPosition(345,270);
 	app.draw(currentScore);
@@ -246,11 +258,16 @@ void gameOver() {
 	app.draw(over);
 	timer+=1;
 	if (timer>180) {
-		isPlaying = false;
-		isOver = true;
-		if	(isPlaying == false && isOver == true) {
-			gameNeedsToBeInitialised = true;
-			gameState = stateStartGame;
+		if (score>a.getLastScore() && isInput==false) {
+			isInput= true;
+		} 
+		else {
+			isPlaying = false;
+			isOver = true;
+			if	(isPlaying == false && isOver == true) {
+				gameNeedsToBeInitialised = true;
+				gameState = stateStartGame;
+			}
 		}
 	}
 }
@@ -346,6 +363,14 @@ void MenuOver() {
 	btn_over2.setFont(fontMenu);
 }	
 
+void TextBox() {
+	textbox1.setFont(fontTextBox);
+	textbox1.setPosition({248,200});
+	textbox1.setLimit(true,25);
+	btn_submit.setPosition2({410,450});
+	btn_submit.setFont(fontMenu);
+}
+
 void Game::run()
 {	
 	MenuRun();
@@ -355,18 +380,21 @@ void Game::run()
 	icon.loadFromFile("images/icon.png");
 	app.setIcon(icon.getSize().x,icon.getSize().y,icon.getPixelsPtr());
 	
-	Font fontLoading;
 	fontLoading.loadFromFile("font/futureforcescondital.ttf");
-	Text loading;
+	fontTextBox.loadFromFile("font/futureforcescondital.ttf");
+	
 	loading.setFont(fontLoading);
 	loading.setFillColor(sf::Color::White);
 	loading.setPosition(310, 200);
 	loading.setCharacterSize(100);
+	
 	Clock load;
 	load.restart();
 	
     srand(time(NULL));
    	app.setFramerateLimit(60);
+   	app.setKeyRepeatEnabled(true);
+   	
     while(app.isOpen()) {
 		Event Event;
 		if(Keyboard::isKeyPressed(Keyboard::Return)) {
@@ -426,41 +454,73 @@ void Game::run()
 				}
 			}
 			if(isOver == true) {
-		    	switch(Event.type) {
-		    		case Event::MouseMoved:
+				if (isInput) {
+					switch(Event.type) {
+		    			case Event::MouseMoved:
 						//btn1
-						if(btn_over1.isMouseOver(app)) {
-							btn_over1.setBackColor({33,66,120,200});
-							checkColor2 = 1;
-							sfx.play();
-						}
-						else {
-							btn_over1.setBackColor(Color::White);
-							checkColor = 0;
-						}
-						//btn_over2
-						if(btn_over2.isMouseOver(app)) {
-							btn_over2.setBackColor({33,66,120,200});
-							checkColor2 = 2;
-							sfx.play();
-						}
-						else {
-							btn_over2.setBackColor(Color::White);
-	//						checkColor = 0;
-						}
-					case Event::MouseButtonReleased:
-						if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {
-	//						app.close();
-							if(isPlaying == false) {
-								sfx2.play();
-//								gameState=statePlayGame;
-								isOver = false;
+							if(btn_submit.isMouseOver(app)) {
+								btn_submit.setBackColor({33,66,120,200});
+								checkColor2 = 1;
+								sfx.play();
 							}
-						}
-						else if(Event.mouseButton.button == Mouse::Left && checkColor2 == 2) {
-							sfx2.play();
-							app.close();
-						}
+							else {
+								btn_submit.setBackColor(Color::White);
+								checkColor = 0;
+							}
+						case Event::MouseButtonReleased:
+							if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {
+		//						app.close();
+								if(isPlaying == false) {
+									sfx2.play();
+	//								gameState=statePlayGame;
+									string name = textbox1.getText();
+									a.setLast(name);
+									a.UpdateHighScore();
+									a.writeFile();
+									isInput=false;
+								}
+							}
+						case Event::TextEntered:
+	        				textbox1.typedOn(Event);
+					} 
+				} 
+				else {
+			    	switch(Event.type) {
+			    		case Event::MouseMoved:
+							//btn1
+							if(btn_over1.isMouseOver(app)) {
+								btn_over1.setBackColor({33,66,120,200});
+								checkColor2 = 1;
+								sfx.play();
+							}
+							else {
+								btn_over1.setBackColor(Color::White);
+								checkColor = 0;
+							}
+							//btn_over2
+							if(btn_over2.isMouseOver(app)) {
+								btn_over2.setBackColor({33,66,120,200});
+								checkColor2 = 2;
+								sfx.play();
+							}
+							else {
+								btn_over2.setBackColor(Color::White);
+		//						checkColor = 0;
+							}
+						case Event::MouseButtonReleased:
+							if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {
+								//app.close();
+								if(isPlaying == false) {
+									sfx2.play();
+									//gameState=statePlayGame;
+									isOver = false;
+								}
+							}
+							else if(Event.mouseButton.button == Mouse::Left && checkColor2 == 2) {
+								sfx2.play();
+								app.close();
+							}
+					}
 				}
 			}
 		}
@@ -503,14 +563,22 @@ void Game::run()
 			app.display();
 		}	
 		else if(isPlaying == false && isOver == true) {
+			if (isInput) {
+				TextBox();
+				app.draw(sprite);
+				textbox1.draw(app);
+				btn_submit.drawTo(app);
+				app.display();
+			} 
+			else {
 				MenuOver();
-			app.draw(sprite);
-			app.draw(nameGame);
-			app.draw(overName);
-			btn_over1.drawTo(app);
-			btn_over2.drawTo(app);
-			app.display();
+				app.draw(sprite);
+				app.draw(nameGame);
+				app.draw(overName);
+				btn_over1.drawTo(app);
+				btn_over2.drawTo(app);
+				app.display();
+			}
 		}
-		
 	}
 }

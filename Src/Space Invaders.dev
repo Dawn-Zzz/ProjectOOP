@@ -29,7 +29,11 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=00000000c0000000000000000
+<<<<<<< HEAD
+UnitCount=20
+=======
 UnitCount=18
+>>>>>>> main
 
 [VersionInfo]
 Major=1
@@ -211,7 +215,8 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit17]
-FileName=Score.cpp
+<<<<<<< HEAD
+FileName=Score.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -221,7 +226,34 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit18]
+=======
+>>>>>>> main
+FileName=Score.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+<<<<<<< HEAD
+[Unit19]
+FileName=Textbox.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit20]
+FileName=Textbox.h
+=======
+[Unit18]
 FileName=Score.h
+>>>>>>> main
 CompileCpp=1
 Folder=
 Compile=1

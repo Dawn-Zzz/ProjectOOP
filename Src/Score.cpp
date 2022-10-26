@@ -5,15 +5,11 @@
 #include "Variable.h"
 
 Score::Score(){
-	Num = 5;
-	//readFile();
+	//Num = 5;
 	currentScore = 0;
-	for (int i = 0; i < Num; i++) {
+	for (int i = 0; i < 5; i++) {
 		HighScore[i] = 0;
 	}
-//	writeFile();
-	
-	//printScores();
 }
 
 void Score::setCurrentScore(){
@@ -26,12 +22,12 @@ int Score::getCurrentScore(){
 
 void Score::UpdateHighScore(){
 	//int s = currentScore;
-	for (int i = 0; i < Num; i++) {
+	for (int i = 0; i < 5; i++) {
 		if (currentScore > HighScore[i]) {
 			std::swap(currentScore, HighScore[i]);
 		}
 	}
-	std::sort(HighScore, HighScore + Num, [](int a, int b) { return a > b; });
+	std::sort(HighScore, HighScore + 5, [](int a, int b) { return a > b; });
 }
 
 int Score::getBestScore(){
@@ -56,12 +52,12 @@ int* Score::getHighScore(){
 	return HighScore;
 }
 
-int Score::getNum(){
-	return Num;
-}
+//int Score::getNum(){
+//	return Num;
+//}
 
 void Score::printScores(){
-	for (int i = 0; i < Num; i++) {
+	for (int i = 0; i < 5; i++) {
 		printf("%d ", HighScore[i]);
 	}
 	printf("\n");

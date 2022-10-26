@@ -9,7 +9,7 @@ class Score{
 	private:
 		int currentScore;
 		int HighScore[5] ;
-		int Num;
+		//int Num;
 	public:
 		Score();
 		void setCurrentScore();
@@ -23,7 +23,7 @@ class Score{
 		void writeFile();
 
 		int* getHighScore();
-		int getNum();
+		//int getNum();
 
 		void printScores();
 };

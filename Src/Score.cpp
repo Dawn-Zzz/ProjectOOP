@@ -66,4 +66,3 @@ void Score::writeFile(){
 	output.close();
 }
 
-

@@ -31,7 +31,7 @@ int calcAlienSpeed(int aliensAlive) {
 	else if (aliensAlive<=40) 
 		delay = 30;
 	else
-		delay = 0;
+		delay = 20;
 	return delay; 
 }
 

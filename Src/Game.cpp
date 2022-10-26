@@ -109,21 +109,58 @@ void drawScore(){
 	scoreText.setCharacterSize(30);
 	scoreText.setStyle(sf::Text::Bold);
 	scoreText.setFillColor(sf::Color::Green);
+	scoreText.setPosition(10,0);
 	
 	stringstream s1,s2;
 	s1 << score;
 	scoreText.setString("Score "+s1.str());
 	app.draw(scoreText);
-		
-	Text lives;
-	lives.setFont(font);
-	lives.setCharacterSize(30);
-	lives.setStyle(sf::Text::Bold);
-	lives.setFillColor(sf::Color::White);	
-	lives.setPosition(890,0);
-	s2 << playerLives;
-	lives.setString("Lives "+s2.str());
-	app.draw(lives);
+
+	Texture b,c;
+	Sprite lives1,lives2,lives3;
+	b.loadFromFile("images/heart.png");
+	c.loadFromFile("images/loseheart.png");
+	if(playerLives == 3){
+		lives1.setTexture(b);
+		lives1.setPosition(920,5);
+		app.draw(lives1);
+		lives2.setTexture(b);
+		lives2.setPosition(950,5);
+		app.draw(lives2);
+		lives3.setTexture(b);
+		lives3.setPosition(980,5);
+		app.draw(lives3);
+	}else if(playerLives == 2){
+		lives1.setTexture(c);
+		lives1.setPosition(920,5);
+		app.draw(lives1);
+		lives2.setTexture(b);
+		lives2.setPosition(950,5);
+		app.draw(lives2);
+		lives3.setTexture(b);
+		lives3.setPosition(980,5);
+		app.draw(lives3);
+	}else if(playerLives == 1){
+		lives1.setTexture(c);
+		lives1.setPosition(920,5);
+		app.draw(lives1);
+		lives2.setTexture(c);
+		lives2.setPosition(950,5);
+		app.draw(lives2);
+		lives3.setTexture(b);
+		lives3.setPosition(980,5);
+		app.draw(lives3);
+	}else if(playerLives == 0){
+		lives1.setTexture(c);
+		lives1.setPosition(920,5);
+		app.draw(lives1);
+		lives2.setTexture(c);
+		lives2.setPosition(950,5);
+		app.draw(lives2);
+		lives3.setTexture(c);
+		lives3.setPosition(980,5);
+		app.draw(lives3);
+	}
 }
 
 void initialiseGame(){

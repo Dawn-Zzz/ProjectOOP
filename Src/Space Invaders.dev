@@ -4,8 +4,8 @@ Name=Space Invaders
 Type=0
 Ver=2
 ObjFiles=
-Includes=C:\SFML-2.4.0\include
-Libs=C:\SFML-2.4.0\lib
+Includes=C:\SFML-2.4.2\include
+Libs=C:\SFML-2.4.2\lib
 PrivateResource=
 ResourceIncludes=
 MakeIncludes=
@@ -29,7 +29,11 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=00000000c0000000000000000
+<<<<<<< HEAD
 UnitCount=20
+=======
+UnitCount=18
+>>>>>>> main
 
 [VersionInfo]
 Major=1
@@ -211,6 +215,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit17]
+<<<<<<< HEAD
 FileName=Score.h
 CompileCpp=1
 Folder=
@@ -221,6 +226,8 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit18]
+=======
+>>>>>>> main
 FileName=Score.cpp
 CompileCpp=1
 Folder=
@@ -230,6 +237,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+<<<<<<< HEAD
 [Unit19]
 FileName=Textbox.cpp
 CompileCpp=1
@@ -242,6 +250,10 @@ BuildCmd=
 
 [Unit20]
 FileName=Textbox.h
+=======
+[Unit18]
+FileName=Score.h
+>>>>>>> main
 CompileCpp=1
 Folder=
 Compile=1

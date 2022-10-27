@@ -399,7 +399,7 @@ void Game::run()
 						}
 						else {
 							btn_over1.setBackColor(Color::White);
-							checkColor = 0;
+							checkColor2 = 0;
 						}
 						//btn_over2
 						if(btn_over2.isMouseOver(app)) {
@@ -409,7 +409,7 @@ void Game::run()
 						}
 						else {
 							btn_over2.setBackColor(Color::White);
-	//						checkColor = 0;
+//							checkColor2 = 0;
 						}
 					case Event::MouseButtonReleased:
 						if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {

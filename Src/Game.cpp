@@ -55,8 +55,8 @@ SoundBuffer soundClick;
 Sound sfx;
 Sound sfx2;
 
-Button btn_over1("MAIN MENU", {200,50}, 30, Color::White, {229,88,96,250});
-Button btn_over2("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
+Button btn_back("MAIN MENU", {200,50}, 30, Color::White, {229,88,96,250});
+Button btn_overExit("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
 
 Button btn_submit ("SUBMIT",{200,50},30,Color::White, {229,88,96,250});
 
@@ -80,9 +80,10 @@ int gameState = stateStartGame;
 int checkColor;
 int checkColor2;
 
-bool isInput = false;
 bool isPlaying = false;
+bool isShowScore = false;
 bool isOver = false;
+bool isInput = false;
 
 int timer=0;
 
@@ -356,11 +357,11 @@ void MenuOver() {
 	overName.setCharacterSize(40);
 	overName.setColor({244,208,104,200});
 	
-	btn_over1.setPosition2({410,350});
-	btn_over1.setFont(fontMenu);
+	btn_back.setPosition2({410,350});
+	btn_back.setFont(fontMenu);
 	
-	btn_over2.setPosition2({410,450});
-	btn_over2.setFont(fontMenu);
+	btn_overExit.setPosition2({410,450});
+	btn_overExit.setFont(fontMenu);
 }	
 
 void TextBox() {
@@ -404,53 +405,80 @@ void Game::run()
 			if(Event.type == Event::Closed) 
 				app.close();
 		    if(isPlaying == false && isOver == false) {
-		    	switch(Event.type) {
-		    		case Event::MouseMoved:
-						//btn1
-						if(btn1.isMouseOver(app)) {
-							btn1.setBackColor({33,66,120,200});
-							checkColor = 1;
-							sfx.play();
+		    	if (isShowScore) {
+		    		switch(Event.type) {
+			    		case Event::MouseMoved:
+							//btn1
+							if(btn_back.isMouseOver(app)) {
+								btn_back.setBackColor({33,66,120,200});
+								checkColor2 = 1;
+								sfx.play();
+							}
+							else {
+								btn_back.setBackColor(Color::White);
+								checkColor = 0;
+							}
+						case Event::MouseButtonReleased:
+							if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {
+								//app.close();
+								if(isPlaying == false) {
+									sfx2.play();
+									//gameState=statePlayGame;
+									isShowScore = false;
+								}
+							}
 						}
-						else {
-							btn1.setBackColor(Color::White);
-							checkColor = 0;
-						}
-						//btn2
-						if(btn2.isMouseOver(app)) {
-							btn2.setBackColor({33,66,120,200});
-							checkColor = 2;
-							sfx.play();
-						}
-						else {
-							btn2.setBackColor(Color::White);
-	//						checkColor = 0;
-						}
-						//btn3
-						if(btn3.isMouseOver(app)) {
-							btn3.setBackColor({33,66,120,200});
-							checkColor = 3;
-							sfx.play();
-						}
-						else {
-							btn3.setBackColor(Color::White);
-	//						checkColor = 0;
-						}
-					case Event::MouseButtonReleased:
-						if(Event.mouseButton.button == Mouse::Left && checkColor == 1 && isPlaying == false) {
-	//						app.close();
-							sfx2.play();
-							gameState=statePlayGame;
-							isPlaying = true;
-						}
-						else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {
-	//						check = 2;
-							sfx2.play();
-						}
-						else if(Event.mouseButton.button == Mouse::Left && checkColor == 3) {
-							sfx2.play();
-							app.close();
-						}
+		    	} 
+		    	else {
+			    	switch(Event.type) {
+			    		case Event::MouseMoved:
+							//btn1
+							if(btn1.isMouseOver(app)) {
+								btn1.setBackColor({33,66,120,200});
+								checkColor = 1;
+								sfx.play();
+							}
+							else {
+								btn1.setBackColor(Color::White);
+								checkColor = 0;
+							}
+							//btn2
+							if(btn2.isMouseOver(app)) {
+								btn2.setBackColor({33,66,120,200});
+								checkColor = 2;
+								sfx.play();
+							}
+							else {
+								btn2.setBackColor(Color::White);
+		//						checkColor = 0;
+							}
+							//btn3
+							if(btn3.isMouseOver(app)) {
+								btn3.setBackColor({33,66,120,200});
+								checkColor = 3;
+								sfx.play();
+							}
+							else {
+								btn3.setBackColor(Color::White);
+		//						checkColor = 0;
+							}
+						case Event::MouseButtonReleased:
+							if(Event.mouseButton.button == Mouse::Left && checkColor == 1 && isPlaying == false) {
+		//						app.close();
+								sfx2.play();
+								gameState=statePlayGame;
+								isPlaying = true;
+							}
+							else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {
+		//						check = 2;
+								sfx2.play();
+								isShowScore = true;
+							}
+							else if(Event.mouseButton.button == Mouse::Left && checkColor == 3) {
+								sfx2.play();
+								app.close();
+							}
+					}
 				}
 			}
 			if(isOver == true) {
@@ -488,23 +516,23 @@ void Game::run()
 			    	switch(Event.type) {
 			    		case Event::MouseMoved:
 							//btn1
-							if(btn_over1.isMouseOver(app)) {
-								btn_over1.setBackColor({33,66,120,200});
+							if(btn_back.isMouseOver(app)) {
+								btn_back.setBackColor({33,66,120,200});
 								checkColor2 = 1;
 								sfx.play();
 							}
 							else {
-								btn_over1.setBackColor(Color::White);
+								btn_back.setBackColor(Color::White);
 								checkColor = 0;
 							}
 							//btn_over2
-							if(btn_over2.isMouseOver(app)) {
-								btn_over2.setBackColor({33,66,120,200});
+							if(btn_overExit.isMouseOver(app)) {
+								btn_overExit.setBackColor({33,66,120,200});
 								checkColor2 = 2;
 								sfx.play();
 							}
 							else {
-								btn_over2.setBackColor(Color::White);
+								btn_overExit.setBackColor(Color::White);
 		//						checkColor = 0;
 							}
 						case Event::MouseButtonReleased:
@@ -554,13 +582,22 @@ void Game::run()
 	    app.display();
 	    }
 	    else if(isPlaying == false && isOver == false){
-		    app.draw(sprite);
-		    app.draw(nameGame);
-		    app.draw(subName);
-			btn1.drawTo(app);
-			btn2.drawTo(app);
-			btn3.drawTo(app);
-			app.display();
+	    	if (isShowScore) {
+	    		app.draw(sprite);
+	    		btn_back.setPosition2({410,500});
+				btn_back.setFont(fontMenu);
+	    		btn_back.drawTo(app);
+	    		app.display();
+			}
+			else {
+			    app.draw(sprite);
+			    app.draw(nameGame);
+			    app.draw(subName);
+				btn1.drawTo(app);
+				btn2.drawTo(app);
+				btn3.drawTo(app);
+				app.display();
+			}
 		}	
 		else if(isPlaying == false && isOver == true) {
 			if (isInput) {
@@ -575,8 +612,8 @@ void Game::run()
 				app.draw(sprite);
 				app.draw(nameGame);
 				app.draw(overName);
-				btn_over1.drawTo(app);
-				btn_over2.drawTo(app);
+				btn_back.drawTo(app);
+				btn_overExit.drawTo(app);
 				app.display();
 			}
 		}

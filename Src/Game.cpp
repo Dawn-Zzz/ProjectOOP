@@ -7,6 +7,7 @@
 #include "Variable.h"
 #include "Menu.h"
 #include "Score.h"
+#include "Textbox.h"
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
@@ -34,20 +35,32 @@ Action *pShip= new playerShip;
 Action *pBullet_ship= new bulletShip;
 
 Font fontMenu;
+Font fontTextBox;
+Font fontLoading;
+
 Texture textureMenu;
+
+Text loading;
 Text nameGame;
 Text subName;
 Text overName;
+
 Button btn1("PLAY", {200,50}, 30, Color::White, {229,88,96,250});
 Button btn2("ABOUT", {200,50}, 30, Color::White, {229,88,96,250});
 Button btn3("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
+
 SoundBuffer soundMenu;
 SoundBuffer soundClick;
+
 Sound sfx;
 Sound sfx2;
 
-Button btn_over1("MAIN MENU", {200,50}, 30, Color::White, {229,88,96,250});
-Button btn_over2("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
+Button btn_back("MAIN MENU", {200,50}, 30, Color::White, {229,88,96,250});
+Button btn_overExit("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
+
+Button btn_submit ("SUBMIT",{200,50},30,Color::White, {229,88,96,250});
+
+Textbox textbox1(40,sf::Color::White, true);
 
 bool gameNeedsToBeInitialised=true;
 
@@ -64,11 +77,14 @@ int stateGameOver = 3;
 int stateAllAliensDead = 4;
 int gameState = stateStartGame;
 
-int checkColor;
-int checkColor2;
+int checkColor;		//main menu
+int checkColor2;	//over menu
+int checkColor3;	//about menu
 
 bool isPlaying = false;
+bool isShowScore = false;
 bool isOver = false;
+bool isInput = false;
 
 int timer=0;
 
@@ -95,21 +111,58 @@ void drawScore(){
 	scoreText.setCharacterSize(30);
 	scoreText.setStyle(sf::Text::Bold);
 	scoreText.setFillColor(sf::Color::Green);
+	scoreText.setPosition(10,0);
 	
 	stringstream s1,s2;
 	s1 << score;
 	scoreText.setString("Score "+s1.str());
 	app.draw(scoreText);
-		
-	Text lives;
-	lives.setFont(font);
-	lives.setCharacterSize(30);
-	lives.setStyle(sf::Text::Bold);
-	lives.setFillColor(sf::Color::White);	
-	lives.setPosition(890,0);
-	s2 << playerLives;
-	lives.setString("Lives "+s2.str());
-	app.draw(lives);
+
+	Texture b,c;
+	Sprite lives1,lives2,lives3;
+	b.loadFromFile("images/heart.png");
+	c.loadFromFile("images/loseheart.png");
+	if(playerLives == 3){
+		lives1.setTexture(b);
+		lives1.setPosition(920,5);
+		app.draw(lives1);
+		lives2.setTexture(b);
+		lives2.setPosition(950,5);
+		app.draw(lives2);
+		lives3.setTexture(b);
+		lives3.setPosition(980,5);
+		app.draw(lives3);
+	}else if(playerLives == 2){
+		lives1.setTexture(c);
+		lives1.setPosition(920,5);
+		app.draw(lives1);
+		lives2.setTexture(b);
+		lives2.setPosition(950,5);
+		app.draw(lives2);
+		lives3.setTexture(b);
+		lives3.setPosition(980,5);
+		app.draw(lives3);
+	}else if(playerLives == 1){
+		lives1.setTexture(c);
+		lives1.setPosition(920,5);
+		app.draw(lives1);
+		lives2.setTexture(c);
+		lives2.setPosition(950,5);
+		app.draw(lives2);
+		lives3.setTexture(b);
+		lives3.setPosition(980,5);
+		app.draw(lives3);
+	}else if(playerLives == 0){
+		lives1.setTexture(c);
+		lives1.setPosition(920,5);
+		app.draw(lives1);
+		lives2.setTexture(c);
+		lives2.setPosition(950,5);
+		app.draw(lives2);
+		lives3.setTexture(c);
+		lives3.setPosition(980,5);
+		app.draw(lives3);
+	}
 }
 
 void initialiseGame(){
@@ -176,15 +229,13 @@ void gameOver() {
 	font.loadFromFile("font/upheavtt.ttf");
 	a.readFile();
 	a.setCurrentScore();
-	a.UpdateHighScore();
-	a.writeFile();
 	stringstream s1,s2;
 	Text currentScore;
 	currentScore.setFont(font);
 	currentScore.setCharacterSize(50);
 	currentScore.setStyle(sf::Text::Bold);
 	currentScore.setFillColor(sf::Color::Green);
-	s1 <<a.getCurrentScore();
+	s1 << a.getCurrentScore();
 	currentScore.setString("Your Score "+s1.str());
 	currentScore.setPosition(345,270);
 	app.draw(currentScore);
@@ -209,11 +260,16 @@ void gameOver() {
 	app.draw(over);
 	timer+=1;
 	if (timer>180) {
-		isPlaying = false;
-		isOver = true;
-		if	(isPlaying == false && isOver == true) {
-			gameNeedsToBeInitialised = true;
-			gameState = stateStartGame;
+		if (score>a.getLastScore() && isInput==false) {
+			isInput= true;
+		} 
+		else {
+			isPlaying = false;
+			isOver = true;
+			if	(isPlaying == false && isOver == true) {
+				gameNeedsToBeInitialised = true;
+				gameState = stateStartGame;
+			}
 		}
 	}
 }
@@ -302,12 +358,20 @@ void MenuOver() {
 	overName.setCharacterSize(40);
 	overName.setColor({244,208,104,200});
 	
-	btn_over1.setPosition2({410,350});
-	btn_over1.setFont(fontMenu);
+	btn_back.setPosition2({410,350});
+	btn_back.setFont(fontMenu);
 	
-	btn_over2.setPosition2({410,450});
-	btn_over2.setFont(fontMenu);
+	btn_overExit.setPosition2({410,450});
+	btn_overExit.setFont(fontMenu);
 }	
+
+void TextBox() {
+	textbox1.setFont(fontTextBox);
+	textbox1.setPosition({248,200});
+	textbox1.setLimit(true,25);
+	btn_submit.setPosition2({410,450});
+	btn_submit.setFont(fontMenu);
+}
 
 void Game::run()
 {	
@@ -318,18 +382,21 @@ void Game::run()
 	icon.loadFromFile("images/icon.png");
 	app.setIcon(icon.getSize().x,icon.getSize().y,icon.getPixelsPtr());
 	
-	Font fontLoading;
 	fontLoading.loadFromFile("font/futureforcescondital.ttf");
-	Text loading;
+	fontTextBox.loadFromFile("font/futureforcescondital.ttf");
+	
 	loading.setFont(fontLoading);
 	loading.setFillColor(sf::Color::White);
 	loading.setPosition(310, 200);
 	loading.setCharacterSize(100);
+	
 	Clock load;
 	load.restart();
 	
     srand(time(NULL));
    	app.setFramerateLimit(60);
+   	app.setKeyRepeatEnabled(true);
+   	
     while(app.isOpen()) {
 		Event Event;
 		if(Keyboard::isKeyPressed(Keyboard::Return)) {
@@ -339,91 +406,157 @@ void Game::run()
 			if(Event.type == Event::Closed) 
 				app.close();
 		    if(isPlaying == false && isOver == false) {
-		    	switch(Event.type) {
-		    		case Event::MouseMoved:
-						//btn1
-						if(btn1.isMouseOver(app)) {
-							btn1.setBackColor({33,66,120,200});
-							checkColor = 1;
-							sfx.play();
+		    	if (isShowScore) {
+		    		switch(Event.type) {
+			    		case Event::MouseMoved:
+							//btn1
+							if(btn_back.isMouseOver(app)) {
+								btn_back.setBackColor({33,66,120,200});
+								checkColor3 = 1;
+								sfx.play();
+							}
+							else {
+								btn_back.setBackColor(Color::White);
+								checkColor3 = 0;
+							}
+						case Event::MouseButtonReleased:
+							if(Event.mouseButton.button == Mouse::Left && checkColor3 == 1) {
+								//app.close();
+								if(isPlaying == false) {
+									btn_back.setBackColor(Color::White);
+									checkColor = 0;
+									sfx2.play();
+									//gameState=statePlayGame;
+									isShowScore = false;
+								}
+							}
 						}
-						else {
-							btn1.setBackColor(Color::White);
-							checkColor = 0;
-						}
-						//btn2
-						if(btn2.isMouseOver(app)) {
-							btn2.setBackColor({33,66,120,200});
-							checkColor = 2;
-							sfx.play();
-						}
-						else {
-							btn2.setBackColor(Color::White);
-	//						checkColor = 0;
-						}
-						//btn3
-						if(btn3.isMouseOver(app)) {
-							btn3.setBackColor({33,66,120,200});
-							checkColor = 3;
-							sfx.play();
-						}
-						else {
-							btn3.setBackColor(Color::White);
-	//						checkColor = 0;
-						}
-					case Event::MouseButtonReleased:
-						if(Event.mouseButton.button == Mouse::Left && checkColor == 1 && isPlaying == false) {
-	//						app.close();
-							sfx2.play();
-							gameState=statePlayGame;
-							isPlaying = true;
-						}
-						else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {
-	//						check = 2;
-							sfx2.play();
-						}
-						else if(Event.mouseButton.button == Mouse::Left && checkColor == 3) {
-							sfx2.play();
-							app.close();
-						}
+		    	} 
+		    	else {
+			    	switch(Event.type) {
+			    		case Event::MouseMoved:
+							//btn1
+							if(btn1.isMouseOver(app)) {
+								btn1.setBackColor({33,66,120,200});
+								checkColor = 1;
+								sfx.play();
+							}
+							else {
+								btn1.setBackColor(Color::White);
+								checkColor = 0;
+							}
+							//btn2
+							if(btn2.isMouseOver(app)) {
+								btn2.setBackColor({33,66,120,200});
+								checkColor = 2;
+								sfx.play();
+							}
+							else {
+								btn2.setBackColor(Color::White);
+		//						checkColor = 0;
+							}
+							//btn3
+							if(btn3.isMouseOver(app)) {
+								btn3.setBackColor({33,66,120,200});
+								checkColor = 3;
+								sfx.play();
+							}
+							else {
+								btn3.setBackColor(Color::White);
+		//						checkColor = 0;
+							}
+						case Event::MouseButtonReleased:
+							if(Event.mouseButton.button == Mouse::Left && checkColor == 1 && isPlaying == false) {
+		//						app.close();
+								btn1.setBackColor(Color::White);
+								sfx2.play();
+								gameState=statePlayGame;
+								isPlaying = true;
+							}
+							else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {
+		//						check = 2;
+								btn2.setBackColor(Color::White);
+		    					checkColor3 = 0;
+								sfx2.play();
+								isShowScore = true;
+							}
+							else if(Event.mouseButton.button == Mouse::Left && checkColor == 3) {
+								sfx2.play();
+								app.close();
+							}
+					}
 				}
 			}
 			if(isOver == true) {
-		    	switch(Event.type) {
-		    		case Event::MouseMoved:
+				if (isInput) {
+					switch(Event.type) {
+						checkColor2 = 0;
+		    			case Event::MouseMoved:
 						//btn1
-						if(btn_over1.isMouseOver(app)) {
-							btn_over1.setBackColor({33,66,120,200});
-							checkColor2 = 1;
-							sfx.play();
-						}
-						else {
-							btn_over1.setBackColor(Color::White);
-							checkColor2 = 0;
-						}
-						//btn_over2
-						if(btn_over2.isMouseOver(app)) {
-							btn_over2.setBackColor({33,66,120,200});
-							checkColor2 = 2;
-							sfx.play();
-						}
-						else {
-							btn_over2.setBackColor(Color::White);
-//							checkColor2 = 0;
-						}
-					case Event::MouseButtonReleased:
-						if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {
-	//						app.close();
-							if(isPlaying == false) {
-								sfx2.play();
-//								gameState=statePlayGame;
-								isOver = false;
+							if(btn_submit.isMouseOver(app)) {
+								btn_submit.setBackColor({33,66,120,200});
+								checkColor2 = 1;
+								sfx.play();
 							}
-						}
-						else if(Event.mouseButton.button == Mouse::Left && checkColor2 == 2) {
-							sfx2.play();
-							app.close();
-						}
+							else {
+								btn_submit.setBackColor(Color::White);
+								checkColor2 = 0;
+							}
+						case Event::MouseButtonReleased:
+							if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {
+		//						app.close();
+								if(isPlaying == false) {
+									sfx2.play();
+	//								gameState=statePlayGame;
+									string name = textbox1.getText();
+									a.setLast(name);
+									a.UpdateHighScore();
+									a.writeFile();
+									isInput=false;
+								}
+							}
+						case Event::TextEntered:
+	        				textbox1.typedOn(Event);
+					} 
+				} 
+				else {
+			    	switch(Event.type) {
+			    		case Event::MouseMoved:
+							//btn1
+							if(btn_back.isMouseOver(app)) {
+								btn_back.setBackColor({33,66,120,200});
+								checkColor2 = 1;
+								sfx.play();
+							}
+							else {
+								btn_back.setBackColor(Color::White);
+								checkColor2 = 0;
+							}
+							//btn_over2
+							if(btn_overExit.isMouseOver(app)) {
+								btn_overExit.setBackColor({33,66,120,200});
+								checkColor2 = 2;
+								sfx.play();
+							}
+							else {
+								btn_overExit.setBackColor(Color::White);
+		//						checkColor = 0;
+							}
+						case Event::MouseButtonReleased:
+							if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {
+								//app.close();
+								if(isPlaying == false) {
+									checkColor = 0;
+									sfx2.play();
+									//gameState=statePlayGame;
+									isOver = false;
+								}
+							}
+							else if(Event.mouseButton.button == Mouse::Left && checkColor2 == 2) {
+								sfx2.play();
+								app.close();
+							}
+					}
 				}
 			}
 		}
@@ -457,23 +590,40 @@ void Game::run()
 	    app.display();
 	    }
 	    else if(isPlaying == false && isOver == false){
-		    app.draw(sprite);
-		    app.draw(nameGame);
-		    app.draw(subName);
-			btn1.drawTo(app);
-			btn2.drawTo(app);
-			btn3.drawTo(app);
-			app.display();
+	    	if (isShowScore) {
+	    		app.draw(sprite);
+	    		btn_back.setPosition2({410,500});
+				btn_back.setFont(fontMenu);
+	    		btn_back.drawTo(app);
+	    		app.display();
+			}
+			else {
+			    app.draw(sprite);
+			    app.draw(nameGame);
+			    app.draw(subName);
+				btn1.drawTo(app);
+				btn2.drawTo(app);
+				btn3.drawTo(app);
+				app.display();
+			}
 		}	
 		else if(isPlaying == false && isOver == true) {
+			if (isInput) {
+				TextBox();
+				app.draw(sprite);
+				textbox1.draw(app);
+				btn_submit.drawTo(app);
+				app.display();
+			} 
+			else {
 				MenuOver();
-			app.draw(sprite);
-			app.draw(nameGame);
-			app.draw(overName);
-			btn_over1.drawTo(app);
-			btn_over2.drawTo(app);
-			app.display();
+				app.draw(sprite);
+				app.draw(nameGame);
+				app.draw(overName);
+				btn_back.drawTo(app);
+				btn_overExit.drawTo(app);
+				app.display();
+			}
 		}
-		
 	}
 }

@@ -29,7 +29,15 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=00000000c0000000000000000
+<<<<<<< HEAD
 UnitCount=18
+=======
+<<<<<<< HEAD
+UnitCount=20
+=======
+UnitCount=20
+>>>>>>> main
+>>>>>>> 8fdc490c30d78730c915dd685c81456b961451c6
 
 [VersionInfo]
 Major=1
@@ -209,9 +217,44 @@ Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+<<<<<<< HEAD
 
 [Unit17]
 FileName=Score.h
+=======
+
+[Unit18]
+=======
+>>>>>>> main
+FileName=Score.cpp
+>>>>>>> 8fdc490c30d78730c915dd685c81456b961451c6
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+<<<<<<< HEAD
+
+[Unit18]
+FileName=Score.cpp
+=======
+<<<<<<< HEAD
+
+[Unit19]
+FileName=Textbox.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit20]
+FileName=Score.cpp
+=======
 CompileCpp=1
 Folder=
 Compile=1
@@ -221,7 +264,19 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit18]
-FileName=Score.cpp
+FileName=Textbox.h
+>>>>>>> main
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit17]
+FileName=Score.h
+>>>>>>> 8fdc490c30d78730c915dd685c81456b961451c6
 CompileCpp=1
 Folder=
 Compile=1

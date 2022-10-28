@@ -118,50 +118,19 @@ void drawScore(){
 	scoreText.setString("Score "+s1.str());
 	app.draw(scoreText);
 
-	Texture b,c;
-	Sprite lives1,lives2,lives3;
-	b.loadFromFile("images/heart.png");
-	c.loadFromFile("images/loseheart.png");
-	if(playerLives == 3){
-		lives1.setTexture(b);
-		lives1.setPosition(920,5);
-		app.draw(lives1);
-		lives2.setTexture(b);
-		lives2.setPosition(950,5);
-		app.draw(lives2);
-		lives3.setTexture(b);
-		lives3.setPosition(980,5);
-		app.draw(lives3);
-	}else if(playerLives == 2){
-		lives1.setTexture(c);
-		lives1.setPosition(920,5);
-		app.draw(lives1);
-		lives2.setTexture(b);
-		lives2.setPosition(950,5);
-		app.draw(lives2);
-		lives3.setTexture(b);
-		lives3.setPosition(980,5);
-		app.draw(lives3);
-	}else if(playerLives == 1){
-		lives1.setTexture(c);
-		lives1.setPosition(920,5);
-		app.draw(lives1);
-		lives2.setTexture(c);
-		lives2.setPosition(950,5);
-		app.draw(lives2);
-		lives3.setTexture(b);
-		lives3.setPosition(980,5);
-		app.draw(lives3);
-	}else if(playerLives == 0){
-		lives1.setTexture(c);
-		lives1.setPosition(920,5);
-		app.draw(lives1);
-		lives2.setTexture(c);
-		lives2.setPosition(950,5);
-		app.draw(lives2);
-		lives3.setTexture(c);
-		lives3.setPosition(980,5);
-		app.draw(lives3);
+	Texture heart,loseheart;
+	Sprite lives;
+	heart.loadFromFile("images/heart.png");
+	loseheart.loadFromFile("images/loseheart.png");
+	for (int i=3-playerLives; i<3; i++) {
+		lives.setTexture(heart);
+		lives.setPosition(920+i*30,5);
+		app.draw(lives);
+	}
+	for (int i=0; i<3-playerLives; i++) {
+		lives.setTexture(loseheart);
+		lives.setPosition(920+i*30,5);
+		app.draw(lives);
 	}
 }
 

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEXTBOX_H_INCLUDED
+#define TEXTBOX_H_INCLUDED
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -12,74 +13,17 @@ class Textbox {
 	public:
 		Textbox() {	
 		}
-		
-		Textbox(int size,sf::Color color, bool sel) {
-			textbox.setCharacterSize(size);
-			textbox.setFillColor(color);
-			isSelected=sel;
-			if (sel) {
-				textbox.setString("|");
-			}
-			else {
-				textbox.setString("");
-			}
-		}
-		
-		void setFont(sf::Font &font) {
-			textbox.setFont(font);
-		}
-		
-		void setPosition (sf::Vector2f pos) {
-			textbox.setPosition (pos);
-		}
-		
-		void setLimit (bool ToF) {
-			hasLimit = ToF;
-		}
-		
-		void setLimit (bool ToF, int lim) {
-			hasLimit = ToF;
-			limit=lim;
-		}
-		
-		void setSelected (bool sel) {
-			isSelected =sel;
-			if (!sel) {
-				std::string t = text.str();
-				std::string newT = "";
-				for (int i=0; i< t.length()-1;i++) {
-					newT+=t[i];
-				}
-				textbox.setString(newT);
-			}
-		}
-		
+		Textbox(int size,sf::Color color, bool sel);
+		void setFont(sf::Font &font);
+		void setPosition (sf::Vector2f pos);
+		void setLimit (bool ToF);
+		void setLimit (bool ToF, int lim);
+		void setSelected (bool sel);
 		std::string getText() {
 			return text.str();
 		}
-		
-		void draw (sf::RenderWindow &app) {
-			app.draw (textbox);
-		}
-		
-		void typedOn (sf::Event input) {
-			if (isSelected) {
-				int charTyped = input.text.unicode;
-				if (charTyped <128) {
-					if (hasLimit) {
-						if (text.str().length()<=limit) {
-							inputLogic(charTyped);
-						}
-						else if (text.str().length()>limit && charTyped == DELETE_KEY) {
-							deleteLastChar ();
-						}
-					}
-					else {
-						inputLogic(charTyped);
-					}
-				}
-			}
-		}
+		void draw (sf::RenderWindow &app);
+		void typedOn (sf::Event input);
 	private:
 		std::ostringstream text;
 		sf::Text textbox;
@@ -105,10 +49,10 @@ class Textbox {
 			for (int i=0; i< t.length()-1;i++) {
 				newT+=t[i];
 			}
-			
 			text.str("");
 			text<<newT;
-			
 			textbox.setString(text.str());
 		}
 };
+
+#endif

@@ -117,6 +117,17 @@ void drawScore(){
 	s1 << score;
 	scoreText.setString("Score "+s1.str());
 	app.draw(scoreText);
+	
+	a.readFile();
+	Text bestscore;
+	bestscore.setFont(font);
+	bestscore.setCharacterSize(30);
+	bestscore.setStyle(sf::Text::Bold);
+	bestscore.setFillColor(sf::Color::Green);
+	bestscore.setPosition(400,0);
+	s2 << a.getBestScore();
+	bestscore.setString("Best Score "+s2.str());
+	app.draw(bestscore);
 
 	Texture heart,loseheart;
 	Sprite lives;
@@ -208,16 +219,6 @@ void gameOver() {
 	currentScore.setString("Your Score "+s1.str());
 	currentScore.setPosition(345,270);
 	app.draw(currentScore);
-		
-	Text bestscore;
-	bestscore.setFont(font);
-	bestscore.setCharacterSize(50);
-	bestscore.setStyle(sf::Text::Bold);
-	bestscore.setFillColor(sf::Color::Green);
-	bestscore.setPosition(345,300);
-	s2 << a.getBestScore();
-	bestscore.setString("Best Score "+s2.str());
-	app.draw(bestscore);
 		
 	Text over;
 	over.setFont(font);

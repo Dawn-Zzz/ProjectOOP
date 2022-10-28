@@ -46,7 +46,7 @@ Text subName;
 Text overName;
 
 Button btn1("PLAY", {200,50}, 30, Color::White, {229,88,96,250});
-Button btn2("ABOUT", {200,50}, 30, Color::White, {229,88,96,250});
+Button btn2("SCORE", {200,50}, 30, Color::White, {229,88,96,250});
 Button btn3("EXIT", {200,50}, 30, Color::White, {229,88,96,250});
 
 SoundBuffer soundMenu;
@@ -337,7 +337,7 @@ void MenuOver() {
 void TextBox() {
 	textbox1.setFont(fontTextBox);
 	textbox1.setPosition({248,200});
-	textbox1.setLimit(true,25);
+	textbox1.setLimit(true,12);
 	btn_submit.setPosition2({410,450});
 	btn_submit.setFont(fontMenu);
 }
@@ -564,6 +564,7 @@ void Game::run()
 	    		btn_back.setPosition2({410,500});
 				btn_back.setFont(fontMenu);
 	    		btn_back.drawTo(app);
+	    		a.draw(app);
 	    		app.display();
 			}
 			else {

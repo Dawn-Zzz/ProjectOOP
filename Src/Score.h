@@ -29,4 +29,6 @@ class Score{
 		
 		void readFile();
 		void writeFile();
+		
+		void draw(sf::RenderWindow &app);
 };

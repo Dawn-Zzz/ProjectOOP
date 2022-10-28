@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include "Variable.h"
 
 Score::Score(){
@@ -64,5 +65,28 @@ void Score::writeFile(){
 		output<<infor[i].Name<<endl;
 	}
 	output.close();
+}
+
+void Score::draw(sf::RenderWindow &app) {
+	readFile();
+	sf::Font font;
+	font.loadFromFile("font/upheavtt.ttf");
+	for (int i=0; i<Num; i++) {
+		std::stringstream s1,s2;
+		sf::Text textInfor;
+		textInfor.setFont(font);
+		textInfor.setCharacterSize(50);
+		textInfor.setStyle(sf::Text::Bold);
+		textInfor.setFillColor(sf::Color::Red);
+		s1 << infor[i].HighScore;
+		textInfor.setString(s1.str());
+		textInfor.setPosition(645,150+i*50);
+		app.draw(textInfor);
+		s2 << infor[i].Name;
+		textInfor.setFillColor(sf::Color::Blue);
+		textInfor.setString(s2.str());
+		textInfor.setPosition(225,150+i*50);
+		app.draw(textInfor);
+	}
 }
 

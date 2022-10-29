@@ -59,8 +59,6 @@ void bulletShip::checkBulletCollisionsAlien(listAliens &a){
 						active = false;
 						a.aliens[i][j].explosion=true;
 						alienExplosion(i,j,a.aliens[i][j].x,a.aliens[i][j].y);
-						if (maxMissile<5)
-							maxMissile++;
 						if (i==0) 
 							score=score+20;
 						else if (i>0 && i<4) 

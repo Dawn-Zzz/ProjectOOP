@@ -371,6 +371,13 @@ void TextBox() {
 
 void ShowHighScore(){
 	Text highScore;
+	Texture Item1,Item2,Item3,Item4, bg;
+    Sprite Icon1,Icon2,Icon3,Icon4, bgScore;
+
+	bg.loadFromFile("images/bgScore.png");
+	bgScore.setTexture(bg);
+	app.draw(bgScore);
+	
 	highScore.setString("LEADERBOARD");
 	highScore.setPosition({250,40});
 	highScore.setFont(fontMenu);
@@ -378,10 +385,6 @@ void ShowHighScore(){
 	highScore.setColor({244,208,104,250});
 	app.draw(highScore);
 	
-	bgScore.loadFromFile("images/bgScore.png");
-	
-	Texture Item1,Item2,Item3,Item4;
-    Sprite Icon1,Icon2,Icon3,Icon4;
 	Item1.loadFromFile("images/Iconlb.png");
 	Item2.loadFromFile("images/medalgold.png");
 	Item3.loadFromFile("images/medalsilver.png");
@@ -404,9 +407,8 @@ void ShowHighScore(){
 
 void Game::run()
 {	
-	ShowHighScore();
 	MenuRun();
-	Sprite sprite(textureMenu), Bg(bgScore);
+	Sprite sprite(textureMenu);
 	
 	Image icon;
 	icon.loadFromFile("images/icon.png");
@@ -621,7 +623,6 @@ void Game::run()
 	    }
 	    else if(isPlaying == false && isOver == false){
 	    	if (isShowScore) {
-	    		app.draw(Bg);
 	    		ShowHighScore();
 	    		btn_back.setPosition2({410,500});
 				btn_back.setFont(fontMenu);

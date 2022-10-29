@@ -20,18 +20,29 @@ Explosion explosions[8][6];
 
 int calcAlienSpeed(int aliensAlive) {
 	int delay;
-	if (aliensAlive<=1) 
+	if (aliensAlive<=5){
 		delay = 3;
-	else if (aliensAlive<=5) 
+	} 
+	else if (aliensAlive<=10){
+		maxMissile=5;
 		delay = 5;
-	else if (aliensAlive<=20) 
+	} 
+	else if (aliensAlive<=20) {
+		maxMissile=4;
 		delay = 20;
-	else if (aliensAlive<=30) 
+	} 
+	else if (aliensAlive<=30) {
+		maxMissile=3;	
 		delay = 25;
-	else if (aliensAlive<=40) 
+	} 
+	else if (aliensAlive<=40) {
+		maxMissile=2;
 		delay = 30;
-	else
+	}
+	else {
+		maxMissile=1;
 		delay = 20;
+	}
 	return delay; 
 }
 

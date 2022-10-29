@@ -12,9 +12,15 @@ CursorRow=4
 TopLine=1
 LeftChar=1
 [Editor_4]
+<<<<<<< HEAD
 CursorCol=19
 CursorRow=392
 TopLine=374
+=======
+CursorCol=33
+CursorRow=368
+TopLine=348
+>>>>>>> b814a7196ac4a8272c0f432502975dc7aeedbe97
 LeftChar=1
 [Editor_5]
 CursorCol=1
@@ -82,9 +88,15 @@ CursorRow=5
 TopLine=1
 LeftChar=1
 [Editor_19]
+<<<<<<< HEAD
 CursorCol=31
 CursorRow=88
 TopLine=61
+=======
+CursorCol=29
+CursorRow=74
+TopLine=57
+>>>>>>> b814a7196ac4a8272c0f432502975dc7aeedbe97
 LeftChar=1
 [Editor_1]
 CursorCol=7

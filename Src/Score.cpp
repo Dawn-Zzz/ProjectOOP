@@ -80,12 +80,12 @@ void Score::draw(sf::RenderWindow &app) {
 		textInfor.setFillColor(sf::Color::Red);
 		s1 << infor[i].HighScore;
 		textInfor.setString(s1.str());
-		textInfor.setPosition(645,150+i*50);
+		textInfor.setPosition(700,180+i*50);
 		app.draw(textInfor);
 		s2 << infor[i].Name;
-		textInfor.setFillColor(sf::Color::Blue);
+		textInfor.setFillColor(sf::Color::White);
 		textInfor.setString(s2.str());
-		textInfor.setPosition(225,150+i*50);
+		textInfor.setPosition(250,180+i*50);
 		app.draw(textInfor);
 	}
 }

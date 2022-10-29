@@ -39,10 +39,14 @@ Font fontTextBox;
 Font fontLoading;
 
 Texture textureMenu;
+Texture bgScore;
+
+sf::RectangleShape bgTextbox;
 
 Text loading;
 Text nameGame;
 Text subName;
+Text highScore;
 Text overName;
 
 Button btn1("PLAY", {200,50}, 30, Color::White, {229,88,96,250});
@@ -337,16 +341,42 @@ void MenuOver() {
 
 void TextBox() {
 	textbox1.setFont(fontTextBox);
-	textbox1.setPosition({248,200});
+	textbox1.setPosition({380,300});
 	textbox1.setLimit(true,12);
 	btn_submit.setPosition2({410,450});
 	btn_submit.setFont(fontMenu);
+	
+	bgTextbox.setSize({300, 35});
+	bgTextbox.setPosition({360, 310});
+	bgTextbox.setOutlineThickness(2);
+    bgTextbox.setOutlineColor(sf::Color::Green);
+    bgTextbox.setFillColor(sf::Color{51,51,255});
+    
+    Text text;
+	text.setFont(fontMenu);
+	text.setCharacterSize(50);
+	text.setStyle(sf::Text::Bold);
+	text.setFillColor(sf::Color::White);	
+	text.setPosition(300,240);
+	text.setString("YOUR SCORE IN TOP 5");
+}
+
+void ShowHighScore(){
+	highScore.setString("LEADERBOARD");
+	highScore.setPosition({250,40});
+	highScore.setFont(fontMenu);
+	highScore.setCharacterSize(80);
+	highScore.setColor({244,208,104,250});
+
+	bgScore.loadFromFile("images/bgScore.png");
+	
 }
 
 void Game::run()
 {	
+	ShowHighScore();
 	MenuRun();
-	Sprite sprite(textureMenu);
+	Sprite sprite(textureMenu), Bg(bgScore);
 	
 	Image icon;
 	icon.loadFromFile("images/icon.png");
@@ -561,7 +591,8 @@ void Game::run()
 	    }
 	    else if(isPlaying == false && isOver == false){
 	    	if (isShowScore) {
-	    		app.draw(sprite);
+	    		app.draw(Bg);
+	    		app.draw(highScore);
 	    		btn_back.setPosition2({410,500});
 				btn_back.setFont(fontMenu);
 	    		btn_back.drawTo(app);
@@ -582,6 +613,7 @@ void Game::run()
 			if (isInput) {
 				TextBox();
 				app.draw(sprite);
+				app.draw(bgTextbox);
 				textbox1.draw(app);
 				btn_submit.drawTo(app);
 				app.display();

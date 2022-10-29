@@ -1,6 +1,6 @@
 #include "Textbox.h"
 
-Textbox::Textbox(int size,sf::Color color, bool sel) {
+Textbox::Textbox(int size,sf::Color color ,bool sel) {
 	textbox.setCharacterSize(size);
 	textbox.setFillColor(color);
 	isSelected=sel;

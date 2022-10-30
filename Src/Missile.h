@@ -9,7 +9,7 @@ using namespace sf;
 
 class missileAlien:public Position,public Action{
 	private:
-		int speed=4;
+		int speed;
 		int height=8,width=4;
 		bool active=false;
 	public:

@@ -51,8 +51,9 @@ void Score::readFile(){
 	std::ifstream input;
 	input.open("HighScore.txt");
 	for (int i=0; i<Num; i++) {
-		input>>infor[i].HighScore;
+		input.ignore();
 		getline(input,infor[i].Name);
+		input>>infor[i].HighScore;
 	}
 	input.close();
 }
@@ -60,9 +61,10 @@ void Score::readFile(){
 void Score::writeFile(){
 	std::ofstream output;
 	output.open("HighScore.txt");
+	output<<" ";
 	for (int i=0; i<Num; i++) {
-		output<<infor[i].HighScore;
 		output<<infor[i].Name<<endl;
+		output<<infor[i].HighScore<<endl;
 	}
 	output.close();
 }

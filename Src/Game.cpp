@@ -15,7 +15,7 @@
 using namespace sf;
 using namespace std;
 
-RenderWindow app(VideoMode(1020, 600), "Galaxy");
+RenderWindow app(VideoMode(1020, 600), "Space Invaders");
 
 class backGround;
 class playerShip;
@@ -89,6 +89,7 @@ bool isOver = false;
 bool isInput = false;
 
 int timer=0;
+int timeLoading=0;
 
 void shipFire () {
 	Bullet_ship.checkFire(Ship);
@@ -422,9 +423,6 @@ void Game::run()
 	loading.setPosition(310, 200);
 	loading.setCharacterSize(100);
 	
-	Clock load;
-	load.restart();
-	
     srand(time(NULL));
    	app.setFramerateLimit(60);
    	app.setKeyRepeatEnabled(true);
@@ -502,6 +500,7 @@ void Game::run()
 		//						app.close();
 								btn1.setBackColor(Color::White);
 								sfx2.play();
+								timeLoading=0;
 								gameState=statePlayGame;
 								isPlaying = true;
 							}
@@ -595,7 +594,8 @@ void Game::run()
    		app.clear();
 		if(isPlaying == true && isOver == false) {
 			//Loading
-			if (load.getElapsedTime().asSeconds() < 3) {
+			timeLoading+=1;
+			if (timeLoading<30) {
 				loading.setString("Loading.");
 				app.clear();
 				//Background.draw(app);
@@ -610,6 +610,7 @@ void Game::run()
 			}  
 			else {
 				//game play
+				timeLoading=30;
 		   		if (gameState==statePlayGame)
 		   			playGame();
 		   		else if (gameState==stateNewLife)

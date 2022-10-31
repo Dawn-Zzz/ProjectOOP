@@ -64,6 +64,8 @@ Button btn_submit ("SUBMIT",{200,50},30,Color::White, {229,88,96,250});
 
 Textbox textbox1(40,sf::Color::White, true);
 
+RectangleShape rectangleLoading1,rectangleLoading2;
+
 bool gameNeedsToBeInitialised=true;
 
 int playerLives = 3;
@@ -205,8 +207,7 @@ void newLife(){
 	drawScore();
 }
 
-void gameOver() {
-	
+void gameOver() {	
 	Background.draw(app);
 	Font font;
 	font.loadFromFile("font/upheavtt.ttf");
@@ -283,6 +284,25 @@ void allAliensDead() {
 	alienFire();	
 }
 
+void Loading () {
+	loading.setString("Loading...");
+	loading.setFont(fontLoading);
+	loading.setFillColor(sf::Color::White);
+	loading.setPosition(310, 200);
+	loading.setCharacterSize(100);
+	
+    rectangleLoading1.setSize(sf::Vector2f(1000, 50));
+    rectangleLoading1.setOutlineColor(sf::Color::White);
+    rectangleLoading1.setFillColor(sf::Color::Cyan);
+    rectangleLoading1.setOutlineThickness(5);
+    rectangleLoading1.setPosition(10, 500);
+    
+    rectangleLoading2.setSize(sf::Vector2f(1000, 50));
+    rectangleLoading2.setOutlineColor(sf::Color::White);
+    rectangleLoading2.setOutlineThickness(5);
+    rectangleLoading2.setPosition(10, 500);
+}
+
 void MenuRun() {
 	
 	soundMenu.loadFromFile("sounds/move_effect.wav");
@@ -345,7 +365,7 @@ void TextBox() {
 	btn_submit.setPosition2({410,450});
 	btn_submit.setFont(fontMenu);
 	
-	sf::RectangleShape bgTextbox;
+	RectangleShape bgTextbox;
 	bgTextbox.setSize({300, 40});
 	bgTextbox.setPosition({360, 270});
 	bgTextbox.setOutlineThickness(2);
@@ -409,6 +429,7 @@ void ShowHighScore(){
 void Game::run()
 {	
 	MenuRun();
+	Loading();
 	Sprite sprite(textureMenu);
 	
 	Image icon;
@@ -417,11 +438,6 @@ void Game::run()
 	
 	fontLoading.loadFromFile("font/futureforcescondital.ttf");
 	fontTextBox.loadFromFile("font/futureforcescondital.ttf");
-	
-	loading.setFont(fontLoading);
-	loading.setFillColor(sf::Color::White);
-	loading.setPosition(310, 200);
-	loading.setCharacterSize(100);
 	
     srand(time(NULL));
    	app.setFramerateLimit(60);
@@ -451,12 +467,10 @@ void Game::run()
 							}
 						case Event::MouseButtonReleased:
 							if(Event.mouseButton.button == Mouse::Left && checkColor3 == 1) {
-								//app.close();
 								if(isPlaying == false) {
 									btn_back.setBackColor(Color::White);
 									checkColor = 0;
 									sfx2.play();
-									//gameState=statePlayGame;
 									isShowScore = false;
 								}
 							}
@@ -483,7 +497,6 @@ void Game::run()
 							}
 							else {
 								btn2.setBackColor(Color::White);
-		//						checkColor = 0;
 							}
 							//btn3
 							if(btn3.isMouseOver(app)) {
@@ -493,11 +506,9 @@ void Game::run()
 							}
 							else {
 								btn3.setBackColor(Color::White);
-		//						checkColor = 0;
 							}
 						case Event::MouseButtonReleased:
 							if(Event.mouseButton.button == Mouse::Left && checkColor == 1 && isPlaying == false) {
-		//						app.close();
 								btn1.setBackColor(Color::White);
 								sfx2.play();
 								timeLoading=0;
@@ -538,7 +549,6 @@ void Game::run()
 		//						app.close();
 								if(isPlaying == false) {
 									sfx2.play();
-	//								gameState=statePlayGame;
 									string name = textbox1.getText();
 									a.setLast(name);
 									a.UpdateHighScore();
@@ -571,7 +581,6 @@ void Game::run()
 							}
 							else {
 								btn_overExit.setBackColor(Color::White);
-		//						checkColor = 0;
 							}
 						case Event::MouseButtonReleased:
 							if(Event.mouseButton.button == Mouse::Left && checkColor2 == 1) {
@@ -579,7 +588,6 @@ void Game::run()
 								if(isPlaying == false) {
 									checkColor = 0;
 									sfx2.play();
-									//gameState=statePlayGame;
 									isOver = false;
 								}
 							}
@@ -595,22 +603,15 @@ void Game::run()
 		if(isPlaying == true && isOver == false) {
 			//Loading
 			timeLoading+=1;
-			if (timeLoading<30) {
-				loading.setString("Loading.");
-				app.clear();
-				//Background.draw(app);
+			if (timeLoading<90) {
 				app.draw(loading);
-				app.display();
-				
-				app.clear();
-				//Background.draw(app);
-				loading.setString("Loading...");
-				app.draw(loading);
-				app.display(); 
+				app.draw(rectangleLoading1);
+				app.draw(rectangleLoading2);
+				rectangleLoading2.move(sf::Vector2f(30,0));
 			}  
 			else {
 				//game play
-				timeLoading=30;
+				timeLoading=90;
 		   		if (gameState==statePlayGame)
 		   			playGame();
 		   		else if (gameState==stateNewLife)

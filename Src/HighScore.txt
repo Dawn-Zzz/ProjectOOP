@@ -1,4 +1,6 @@
- I am coder
+ 
+435
+I am coder
 245
 OOP
 70
@@ -6,5 +8,3 @@ Binh Minh
 50
 100 Diem OOP
 35
-Haha
-30

@@ -1,4 +1,5 @@
- 
+
+10 diem OOP 
 435
 I am coder
 245
@@ -6,5 +7,5 @@ OOP
 70
 Binh Minh
 50
-100 Diem OOP
-35
+C++
+45

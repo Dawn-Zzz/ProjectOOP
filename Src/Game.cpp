@@ -429,7 +429,6 @@ void ShowHighScore(){
 void Game::run()
 {	
 	MenuRun();
-	Loading();
 	Sprite sprite(textureMenu);
 	
 	Image icon;
@@ -513,6 +512,7 @@ void Game::run()
 								sfx2.play();
 								timeLoading=0;
 								gameState=statePlayGame;
+								Loading();
 								isPlaying = true;
 							}
 							else if(Event.mouseButton.button == Mouse::Left && checkColor == 2) {

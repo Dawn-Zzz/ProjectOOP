@@ -1,7 +1,7 @@
 # Object-oriented programming assignment  
 <h2> Introduction </h2>
 <ul>
-  <li>This is a Object-oriented programming subject's great assignment of group of students at the University of Transport and Communications Campus in Ho Chi Minh City</li>
+  <li>This is an Object-oriented programming subject's great assignment made by a group of students at the University of Transport and Communications Campus in Ho Chi Minh City</li>
   <li>Theme: Game Space Invaders</li>
   <li>
     Group's member:
